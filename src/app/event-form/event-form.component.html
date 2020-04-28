@@ -1,0 +1,223 @@
+<div class="container">
+  <div class="row row-content">
+    <div class="col-12">
+      <h2>Event Form</h2>
+    </div>
+    <div class="col-12">
+      <form [formGroup]="eventForm"  (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <div class="col-md-5">
+            <div class="image-uploader">
+              <div class="text-center" style="margin-top: 20px;">
+                <img class="upload-files mt-2 img-fluid" [src]="imgSrc" (click)="fileUploader.click()">
+              </div>
+              <div class="form-group row ">
+                <div class="ml-sm-3 mt-3 pl-sm-5 ">
+                  <!-- <label>Select file to upload</label>
+                  <input type="file" #fileUploader accept="image/*" class="form-control" (change)="showPreview($event)">
+                  <span class="text-danger">This field is required.</span> -->
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file"
+                            #fileUploader
+                            accept="image/*"
+                            class="custom-file-input"
+                            id="inputGroupFile01"
+                            aria-describedby="inputGroupFileAddon01"
+
+                            (change)="showPreview($event)">
+                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                      <!-- <span class="help-block" *ngIf=" !eventForm.get('department').valid && eventForm.get('department').touched">* F</span> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+              <div class="col-md-10 ml-2">
+                <label for="department">Department Organizing</label>
+                <select class="form-control" id="department" formControlName="department">
+                  <option *ngFor="let c of dept" [ngValue]="c">{{c}}</option>
+                </select>
+                <span *ngIf="!eventForm.get('department').valid && eventForm.get('department').touched"
+                  class="help-block">* Department name is required</span>
+              </div>
+
+          </div>
+          <div class="col-md-6 mr-auto">
+          <div class="row">
+            <div class="col-md">
+              <label for="name" class="col-form-label">Event Title</label>
+              <input type="text"
+                     class="form-control"
+                     id="name"
+                     name="name"
+                     formControlName="eventName"
+                     placeholder="Event Title/Name"
+                ><span
+                    *ngIf="!eventForm.get('eventName').valid && eventForm.get('eventName').touched"
+                    class="help-block">* Name is required</span>
+            </div>
+          <!-- <div class="col-md-7 mr-auto">
+
+          </div> -->
+          </div>
+        <div class="row">
+          <div class="col-md">
+            <label for="type" class="col-form-label">Event Type</label>
+            <input type="text"
+                   class="form-control"
+                   id="type"
+                   name="name"
+                   formControlName="eventType"
+                   placeholder="Event Type"
+              ><span
+                    *ngIf="!eventForm.get('eventType').valid && eventForm.get('eventType').touched" class="help-block"
+                    class="help-block"
+              >* Type is required</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md mr-auto">
+            <label for="caption" class="col-form-label">Event Caption</label>
+            <input type="text"
+                   class="form-control"
+                   id="caption"
+                   name="caption"
+                   formControlName="eventCaption"
+                   placeholder="Event Caption">
+            <span
+                *ngIf="!eventForm.get('eventCaption').valid && eventForm.get('eventCaption').touched"
+                class="help-block"
+            >*
+              Caption is required</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-7">
+            <label for="date" class="col-form-label">Event Date</label>
+            <input type="text"
+                   name="date"
+                   placeholder="Event Date"
+                   class="form-control"
+                   id="date"
+                   [minDate]="minDate"
+                   formControlName="eventDate"
+                   bsDatepicker>
+            <span >*
+              Date is required</span>
+
+          </div>
+          <div class="col-md-5">
+            <label for="time" class="col-form-label">Event Time</label>
+            <!-- <input type="time" id="time" formControlName="eventTime" name="time" class="form-control" placeholder="Event Time"> -->
+            <div>
+              <timepicker id="time" [formControl]="eventForm.controls['eventTime']"></timepicker>
+            </div>
+            <span *ngIf="eventForm.get('eventTime').invalid" class="help-block">* Time is required</span>
+          </div>
+
+        </div>
+        <div class=row>
+          <div class="col-md-6">
+            <label for="venue" class="col-form-label">Event Venue</label>
+            <input type="text"
+                   name="venue"
+                   placeholder="Event Venue"
+                   class="form-control "
+                   formControlName="venue"
+                   id="venue">
+            <span
+                  *ngIf="!eventForm.get('venue').valid && eventForm.get('venue').touched" class="help-block"
+            >Venue is required</span>
+          </div>
+          <div class="col-md-5">
+            <label for="fees" class="col-form-label">Registration fees</label>
+            <input type="number" name="fees" placeholder="Registration Fees" class="form-control" id="fees">
+            <span>Registration fees is required</span>
+          </div>
+        </div>
+
+        </div>
+
+        </div>
+        <div class="form-group row">
+          <div class="col-md-8">
+            <div>
+              <label for="desc" class="col-form-label">Description of the event</label>
+              <textarea name="desc"
+                        id="desc"
+                        class="form-control"
+                        placeholder="Enter the details of the event please"
+                        rows="11"
+                        formControlName="eventDescription"
+                        ></textarea>
+              <span *ngIf="eventForm.get('eventDescription').invalid  && eventForm.get('eventDescription').touched"
+                class="help-block">* Description is required</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="regdate"
+                class="col-form-label">Registration Date Deadline</label>
+                <input type="text"
+                       name="date"
+                       placeholder="Registration Date Deadline"
+                       class="form-control "
+                       [minDate]="minDate"
+                       formControlName="registrationDeadline"
+                       bsDatepicker
+                       id="regdate">
+                <span>* Registration Date is required</span>
+              </div>
+              <div formGroupName="eventCordinator">
+                <div class="col-md-12">
+                  <label for="cname" class="col-form-label">Event Coordinator</label>
+                  <input type="text"
+                        name="fees"
+                        placeholder="Event Coordinator"
+                        class="form-control"
+                        formControlName="cordName"
+                        id="cname">
+                  <span
+                    *ngIf="!eventForm.get('eventCordinator.cordName').valid && eventForm.get('eventCordinator.cordName').touched"
+                    class="help-block">* Coordinator name is required</span>
+                </div>
+                <div class="col-md-12">
+                  <label for="contact" class="col-form-label">Coordinator Contact</label>
+                  <input type="text"
+                        name="link"
+                        placeholder="Cordinator Contact"
+                        class="form-control"
+                        formControlName="cordContact"
+                        id="contact"
+                    >
+                  <span
+                      *ngIf="!eventForm.get('eventCordinator.cordContact').valid &&
+                      eventForm.get('eventCordinator.cordContact').touched" class="help-block"
+                  >* Coordinator contact is required</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group row" >
+
+
+        </div>
+
+        <div class="form-group row">
+          <div class="offset-md-2 col-md-10">
+            <button type="button" (click)="updateEvent()" *ngIf="editMode" class="btn btn-warning" [disabled]="eventForm.invalid">Update
+              Event</button>
+            <button type="submit" *ngIf="!editMode" class="btn btn-primary" [disabled]="eventForm.invalid">Submit
+              Event</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

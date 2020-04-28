@@ -1,0 +1,130 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-sm-6">
+      <h3 class="text-center">Update Payment</h3>
+      <div class="example-container mat-elevation-z8">
+
+        <table mat-table [dataSource]="dataSource">
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.index}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell class="text-center" *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Email </th>
+            <td class="ml-3" mat-cell *matCellDef="let element"> {{element.email}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="payment">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Payment </th>
+            <td mat-cell *matCellDef="let element"> <button class="ml-3" [disabled]="element.payment===true"
+                (click)="modalShow(element.index)" mat-raised-button color="accent">{{element.payment ? 'Verified':'Verify Payment'}}</button></td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div class="row" style="display: flex; justify-content: center; align-items: center">
+          <div class="lds-ring" *ngIf="tableLoading">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+      <div class="col-sm-6">
+        <h3 class="text-center">Update Attendace</h3>
+        <div class="example-container mat-elevation-z8" >
+          <table mat-table [dataSource]="verifiedTable">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.index}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name" class="text-center">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef class="text-center"> Email </th>
+              <td class="ml-3" mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="payment" class="text-center">
+              <th mat-header-cell *matHeaderCellDef> Payment </th>
+              <td mat-cell *matCellDef="let element"> <button class="ml-3" [disabled]="element.payment===true"
+                  (click)="modalShow(element.index)" mat-raised-button color="accent">{{element.payment ?'Verified':'Verify Payment'}}</button></td>
+            </ng-container>
+            <ng-container matColumnDef="attended">
+              <th mat-header-cell *matHeaderCellDef> Attended </th>
+              <td class="ml-3" mat-cell *matCellDef="let element">
+                <button class="ml-3" [disabled]="element.attended===true" (click)="attendanceModal(element.index)"
+                  mat-raised-button color="primary">{{element.attended? 'Verified': 'Verify Attendance'}}</button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="verifiedDisplayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: verifiedDisplayedColumns;"></tr>
+          </table>
+          <div class="row" style="display: flex; justify-content: center; align-items: center">
+            <div class="lds-ring" *ngIf="tableLoading">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+      aria-labelledby="dialog-sizes-name2">
+      <div class="modal-dialog modal-dialog-centered modal-sm ">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="dialog-sizes-name2" class="modal-title pull-left">DELETE</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="smModal.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <h5>Are you sure you want to verify {{ !verifiedModal ?  'payment': 'attendence'}} for this user!</h5>
+            <div class="row" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+              <div class="lds-ring" *ngIf="loading">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+            <span class="mine"><button type="button" *ngIf="verifiedModal" class="btn btn-danger pull-left" (click)="verifyAttendance()">Yes
+              </button></span>
+            <span class="mine"><button type="button" *ngIf="!verifiedModal" class="btn btn-danger pull-left"
+                (click)="verifyPayment()">Yes
+              </button></span>&nbsp;
+            <button type="button" class="btn btn-primary pull-right" (click)="smModal.hide()">No </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row " style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+        <button type="button" mat-raised-button color="primary" (click)="everyUpdate()" disabled="tableLoading">Refresh Table</button>
+    </div>
+  </div>

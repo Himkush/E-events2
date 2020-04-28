@@ -1,0 +1,39 @@
+.container {
+  background-color: #f9f9f9;
+  margin-top: 80px;
+}
+
+/* .h1-center {} */
+
+.col-10 {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px red solid;
+}
+
+.help-block {
+  color: red;
+}
+
+label {
+  font-size: 20px;
+  font-weight: bold;
+}
+.upload-files{
+  cursor: pointer;
+  border: #485472 dashed;
+  border-radius: 4%;
+  margin-top: 30px;
+  max-height: 350px;
+}
+.image-uploader{
+  border: #485472 solid;
+  background-color: #ffffff;
+  padding: 10px;
+  margin:25px;
+  border-radius: 7%;
+}

@@ -1,0 +1,96 @@
+<main class="mt-2 pt-2">
+  <div class="container dark-grey-text mt-5">
+    <div class="row wow fadeIn" *ngIf="!loaded">
+      <div class="loader"></div>
+    </div>
+
+    <!--Grid row-->
+    <div class="row wow fadeIn" *ngIf="loaded">
+
+      <!--Grid column-->
+      <div class="col-md-5 mt-5 pt-4 mb-4">
+
+        <img
+          [src] = event.eventImageUrl
+          class="img-fluid"
+          alt=""
+          style="max-height: 450px;"
+          >
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <!--Content-->
+        <div class="p-4 ">
+
+          <div class="mb-3 ">
+            <h2
+              class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4 ">
+              <strong>{{event.eventName}}</strong>
+            </h2>
+            <hr>
+            <span class="badge badge-primary product  ml-xl-0 ml-4 ">{{event.eventCaption}}</span>
+            <div class="badge  product  ml-xl-0 pull-right">
+              Start Time: &nbsp;
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              {{event.eventTime.toDate() | date: 'shortTime'}}
+            </div>
+            <br>
+            <a href="">
+              <span class="badge purple mr-1">{{event.eventType}}</span>
+            </a>
+            <a href="">
+              <span class="badge badge-success mr-1">{{event.eventDate.toDate() > date ? 'Upcoming' : 'Past'}}</span>
+            </a>
+            <div class="badge product ml-xl-0 pull-right">
+              Event Date:
+              <i class="fa fa-calender" aria-hidden="true"></i>
+              {{event.registrationDeadline.toDate()| date: 'mediumDate'}}
+            </div>
+          </div>
+
+          <p class="lead">
+            <span class="mr-1" *ngIf="event.registrationFees>0"> Registration Fees: &#8377;<span>{{event.registrationFees}}</span></span>
+            <span class="mr-1 badge badge-info" *ngIf="event.registrationFees<=0">Free</span>
+          </p>
+
+          <p class="lead font-weight-bold mb-0">Description</p>
+
+          <p class="mb-0">{{event.eventDescription}}</p>
+          <div class="badge badge-danger font-weight-bold ml-xl-0 ">
+            Registration Ends:
+            <i class="fa fa-calender" aria-hidden="true"></i>
+            {{event.registrationDeadline.toDate() | date: 'mediumDate'}}
+          </div>
+          <br>
+          <div class="lead  ml-xl-0" style="font-size: 1rem;">
+            <i class="fa fa-map-marker" aria-hidden="true"></i> Venue: &nbsp;
+            <span>{{event.venue}}</span>
+          </div>
+          <div class="lead  ml-xl-0" style="font-size: 1.1rem;">
+            Organizer: {{event.department}}
+          </div>
+          <div class="h6 ml-xl-0 pull-right" >
+              Coordinator:  {{event.eventCordinator.cordName}}
+              <br>
+              <span class="pull-right">{{event.eventCordinator.cordContact}}</span>
+
+          </div>
+          <a class="btn btn-outline-primary" [routerLink]="['/participants',event.participation]">Participants List</a>
+        </div>
+
+        <!--Content-->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+    <hr>
+
+  </div>
+</main>

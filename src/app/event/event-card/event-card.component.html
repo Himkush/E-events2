@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card__img">
+    <img class="card__img-preview"
+      src={{event.eventImageUrl}}
+      alt="Image name">
+    <div class="card-img-overlay"><span
+        class="badge badge-pill badge-danger">{{event.eventDate.toDate() > date ? 'Upcoming' : 'Past'}}</span> </div>
+  </div>
+  <div class="card__content">
+    <h4 class="card__title"><a [routerLink]="['../event',event.id]" routerLinkActive="router-link-active" >{{event.eventName}}</a></h4>
+    <div class="card__bottom">
+      <div class="options" style="display: inline-block;">
+        <span class="date">
+          <i class="fa fa-calendar" aria-hidden="true"></i> {{event.eventDate.toDate()| date: 'mediumDate'}}
+        </span>
+        <span class="category" style="margin-left: 40px;"><i class="fa fa-tag" aria-hidden="true"></i> Cultural
+          {{event.eventType}}</span>
+      </div>
+    </div>
+    <h4 class="card__text">Caption Text</h4>
+    <p class="card__description">{{event.eventDescription}}</p>
+    <button type="button" class="custom-btn btn-15  pull-left" (click)="editEvent()">Edit</button>
+    <button *ngIf="!event.isAdmin" class="custom-btn btn-15 pull-right" [disabled]="participated" (click)="participate()">{{participated ? 'Participated':'Participate'}}</button>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<div class="example-container mat-elevation-z8 col-10  m-5">
+  <h3>Activate/ Suspend Candidate Account</h3>
+  <h4>Candidate will not be able to participate in events.</h4>
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.index}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell class="text-center" *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Email </th>
+      <td class="ml-3" mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Role </th>
+      <td class="ml-3" mat-cell *matCellDef="let element"> {{element.role | titlecase}} </td>
+    </ng-container>
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Year </th>
+      <td class="ml-3" mat-cell *matCellDef="let element"> {{element.year}} </td>
+    </ng-container>
+    <ng-container matColumnDef="signupDate">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> SignUp Date </th>
+      <td class="ml-3" mat-cell *matCellDef="let element"> {{element.signupDate}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="disable">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Suspend/Activate </th>
+      <td mat-cell *matCellDef="let element"> <button class="ml-3"
+           [disabled]="element.loading"
+           (click)="activateDeactivateAccount(element)"
+           mat-raised-button
+          [color]="element.disabled? 'primary':'warn'">{{element.disabled ? 'Activate':'Suspend'}}</button></td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <div class="row" style="display: flex; justify-content: center; align-items: center">
+    <div class="lds-ring" *ngIf="tableLoading">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+<div class="example-container mat-elevation-z8 col-10  m-5">
+  <h3>Activate/ Deactivate Coordinator Account</h3>
+  <h4>Coordinator will not be able to add/update/delete any event.</h4>
+
+  <table mat-table [dataSource]="coordinatorDataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.index}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell class="text-center" *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Email </th>
+      <td class="ml-3" mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="signupDate">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> SignUp Date </th>
+      <td class="ml-3" mat-cell *matCellDef="let element"> {{element.signupDate}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="activate">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Activate </th>
+      <td mat-cell *matCellDef="let element"> <button class="ml-3" [disabled]="element.loading"
+          (click)="activateCoordinatorAccount(element)" mat-raised-button
+          [color]="element.activate? 'primary':'warn'">{{!element.activate ? 'Activate':'Deactivate'}}</button></td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="coordinatorDisplayColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: coordinatorDisplayColumns;"></tr>
+  </table>
+  <div class="row" style="display: flex; justify-content: center; align-items: center">
+    <div class="lds-ring" *ngIf="tableLoading">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="container">
+
+  <div class="row shift-center">
+    <h2 class="">EDIT INFO</h2>
+  </div>
+  <form [formGroup]="editForm">
+     <!-- <div class="row shift-center pb-4">
+       <div class="custom-control custom-radio mr-md-4">
+         <input class="custom-control-input" id="candidateradio" type="radio" value="candidate" formControlName="role">
+         <label class="custom-control-label" for="candidateradio">Candidate</label>
+       </div>
+       <div class="custom-control custom-radio">
+         <input class="custom-control-input" id="coordinatorradio" type="radio" value="coordinator"
+           formControlName="role">
+         <label class="custom-control-label" for="coordinatorradio">Coordinator</label>
+       </div>
+     </div> -->
+     <div class="row">
+       <div class="col-md-6 border-right">
+         <div class="image-holder">
+           <div class="image-container" [ngStyle]="{'background-image': 'url('+imageUrl+')'}">
+           </div>
+           <input type="file" (change)="showPreview($event)">
+         </div>
+         <div class="">
+           <label for="name" class="col-form-label">First Name</label>
+           <input type="text" class="form-control" id="name" name="name" placeholder="First Name"
+             formControlName="firstName">
+         </div>
+         <div class="">
+           <label for="lname" class="col-form-label">Last Name</label>
+           <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name"
+             formControlName="lastName">
+         </div>
+       </div>
+       <div class="col-md-6">
+         <div class="">
+           <label for="rollno" class="col-form-label">Roll Number</label>
+           <input type="text" class="form-control" id="rollno" name="rollno" placeholder="Roll Number"
+             formControlName="rollNumber">
+         </div>
+         <div class="">
+           <label for="mobile" class="col-form-label">Mobile Number</label>
+           <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile Number"
+             formControlName="mobile">
+         </div>
+         <div class="">
+           <label for="department" class="col-form-label">Department</label>
+           <select type="text" class="form-control" id="department" name="department" formControlName="department">
+             <option value="CSE">CSE</option>
+             <option value="EN">EN</option>
+             <option value="ECE">ECE</option>
+             <option value="IT">IT</option>
+             <option value="CE">CE</option>
+             <option value="ME">ME</option>
+             <option value="BT">BT</option>
+           </select>
+         </div>
+         <div class="">
+           <label for="year" class="col-form-label">Year</label>
+           <select type="text" class="form-control" id="year" name="year" formControlName="year">
+             <option value="1">1</option>
+             <option value="2">2</option>
+             <option value="3">3</option>
+             <option value="4">4</option>
+           </select>
+         </div>
+         <div class="">
+           <button type="submit" class="btn btn-outline-dark mt-4" (click)="editUser()">Confirm Edit</button>
+         </div>
+
+       </div>
+
+     </div>
+
+  </form>
+</div>

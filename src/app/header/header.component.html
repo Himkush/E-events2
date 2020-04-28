@@ -1,0 +1,41 @@
+<nav class="navbar navbar-dark navbar-expand-sm  fixed-top">
+  <div class="container my-container">
+    <button class="navbar-toggler custom-toggler" type="button" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand float-sm-right" routerLink="/">
+      <span class="logo-text">E-EVENTS</span>
+      <!-- <img alt="Himanshu Avatar" width="35" -->
+      <!-- src="../../assets/img/avatar1.png"> -->
+    </a>
+    <div class="collapse navbar-collapse " id="Navbar" [ngClass]="{ 'show': navbarOpen }">
+      <ul class="navbar-nav ml-auto ">
+        <li class="nav-item" routerLinkActive="active">
+          <a (click)="toggleNavbar()" class="nav-link"
+             routerLink="/"><span class="fa fa-home fa-lg"> </span> ABOUT </a></li>
+        <li class="nav-item" routerLink="/event-form" routerLinkActive="active"><a (click)="toggleNavbar()" class="nav-link"
+                                                                                   routerLink="/skills"><span class="fa fa-info fa-lg"> </span> EVENTS </a></li>
+        <li class="nav-item" routerLinkActive="active"><a (click)="toggleNavbar()" class="nav-link"
+                                                          routerLink="/edit-user-info"><span class="fa fa-list fa-lg">
+                                                          </span> WINNERS </a></li>
+        <li class="nav-item" routerLinkActive="active"><a (click)="toggleNavbar()" class="nav-link"
+                                                          routerLink="/"><span class="fa fa-address-card fa-lg"> </span> CONTACT </a></li>
+        <li *ngIf="!user" class="nav-item" routerLinkActive="active">
+          <a (click)="toggleNavbar()" class="nav-link"
+             routerLink="/login"><span class="fa fa-address-card fa-lg"> </span> LOGIN </a>
+        </li>
+        <li *ngIf="user" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
+            {{user.displayName}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="userDropdown">
+            <a class="dropdown-item" routerLink="/edit-user-info">Edit Profile</a>
+            <a class="dropdown-item"  (click)="toggleNavbar();logout()">Logout<span class="fa fa-address-card fa-lg"> </span>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
