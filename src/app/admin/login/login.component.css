@@ -1,0 +1,28 @@
+.container{
+  margin-top: 150px;
+}
+/* .designer-background{ */
+/* background: url("../../assets/img/background.jpg") no-repeat center center fixed;
+background-image: 100%; */
+/* } */
+.form-right {
+  padding-left: 20px
+}
+.image-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+input {
+  border-radius: 20px;
+  border: 1px solid black;
+  outline: none;
+}
+.shift-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {Router} from '@angular/router';
-import {UserModel} from '../models/user.model';
+import {UserModel} from '../model/user.model';
 import {BehaviorSubject} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {switchMap} from 'rxjs/operators';

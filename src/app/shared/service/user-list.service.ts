@@ -1,4 +1,4 @@
-import { UserModel } from './../../models/user.model';
+import { UserModel } from '../model/user.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';

@@ -1,7 +1,7 @@
-import { RegisterService } from './../services/register.service';
+import { RegisterService } from '../shared/service/register.service';
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../services/auth.service';
-import {UserModel} from '../models/user.model';
+import {AuthService} from '../shared/service/auth.service';
+import {UserModel} from '../shared/model/user.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -66,14 +66,14 @@ export class EditUserInfoComponent implements OnInit {
         const url = this.user.imageSrc;
         this.registerService.deleteUserImage(url).then(res => {
         const filePath = `userImages/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-        this.registerService.uploadUserImage(filePath, this.selectedImage)
-            .then(result => {
-              this.registerService.fileRef.getDownloadURL().subscribe( url => {
-              this.editForm.controls.imageSrc.setValue(url);
-              this.auth.updateUser({...this.editForm.value});
-              this.editForm.reset();
-              });
-            });
+        // this.registerService.uploadUserImage(filePath, this.selectedImage)
+        //     .then(result => {
+        //       this.registerService.fileRef.getDownloadURL().subscribe( url => {
+        //       this.editForm.controls.imageSrc.setValue(url);
+        //       this.auth.updateUser({...this.editForm.value});
+        //       this.editForm.reset();
+        //       });
+        //     });
         });
       }
     }

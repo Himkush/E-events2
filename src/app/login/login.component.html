@@ -1,6 +1,5 @@
-<!-- <div class="designer-background"> -->
 <div id="bg">
-<img src="../../assets/img/background.jpg">
+  <img src="../../assets/img/background.jpg">
 </div>
 <div class="container text-white">
 
@@ -15,32 +14,34 @@
       <div class="row shift-center">
         <h2 class="">LOGIN</h2>
       </div>
-      <form [formGroup]="loginForm">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="col-md">
           <label for="email" class="col-form-label">Email Id</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Email" formControlName="email">
-          <!--<span>* Name is required</span>-->
+          <div *ngIf="loginForm.get('email').invalid && formSubmitted" class="badge-pill alert-danger mt-1" role="alert">
+            Email is incorrect!!
+          </div>
         </div>
         <div class="col-md">
           <label for="password" class="col-form-label">Password</label>
           <input type="password" class="form-control" id="password" name="password" placeholder="Password" formControlName="password">
-          <!--<span>* Name is required</span>-->
-        </div>
-        <div  class="shift-center mt-3">
-          <button type="submit" class="btn btn-outline-light mb-1" (click)="login()">Login</button>
-          <div *ngIf="!isAdmin">
-            <p>Register as a <a class="text-white-50" routerLink="/register">CANDIDATE/ COORDINATOR</a>
-            </p>
-            <button  class="btn btn-outline-danger" (click)="showResetPasswordModal()">Forgot
-              Password?</button>
+          <div *ngIf="loginForm.get('password').invalid && formSubmitted" class="badge-pill alert-danger mt-1" role="alert">
+            Password is incorrect!!
           </div>
         </div>
+        <div class="shift-center mt-3">
+          <button type="submit" class="btn btn-outline-light mb-1">Login</button>
+          <p *ngIf="!isAdmin">Register as a <a class="text-white-50" routerLink="/register">CANDIDATE/ COORDINATOR</a></p>
+          <button *ngIf="!isAdmin" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#resetpassword">Forgot Password?</button>
+          </div>
       </form>
     </div>
   </div>
+  <!--<div class="overlay">-->
+  <!--<div class="loader"></div>-->
+  <!--</div>-->
 
 </div>
-
 
 <div class="modal fade" id="resetpassword" >
   <div class="modal-dialog modal-sm">
@@ -55,7 +56,7 @@
 
       <div class="modal-body">
         <div class="form-group">
-          <form [formGroup]="">
+          <form [formGroup]="resetForm">
             <label for="reset">Enter your registered Email Id:</label>
             <input class="form-control" id="reset" placeholder="Email" formControlName="resetEmail">
           </form>
@@ -65,7 +66,7 @@
       <div class="modal-footer">
         <button class="btn btn-dark" (click)="resetPassword()">Reset</button>
       </div>
+
     </div>
   </div>
 </div>
-<!-- </div> -->

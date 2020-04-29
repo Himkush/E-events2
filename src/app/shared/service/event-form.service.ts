@@ -1,5 +1,5 @@
 import { FormsModel } from 'src/app/shared/model/event-form.model';
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from './auth.service';
 import { ParticipationListService } from './participation.service';
 import { Injectable } from '@angular/core';
 

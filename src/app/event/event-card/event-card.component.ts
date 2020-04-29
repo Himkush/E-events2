@@ -1,6 +1,6 @@
 import { ParticipantService } from './../../shared/service/participants.service';
 import { ParticipationListService } from './../../shared/service/participation.service';
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '../../shared/service/auth.service';
 import { EventFormService } from './../../shared/service/event-form.service';
 import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
 import { FormsModel } from 'src/app/shared/model/event-form.model';

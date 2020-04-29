@@ -23,31 +23,32 @@ body {
   /* color: #485472; */
 }
 
-/* body {
-  background: url("assets/img/background.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}*/
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(128,128,128,0.5);
+}
 #bg {
-position: fixed;
-z-index: -2;
-top: -50%;
-left: -50%;
-width: 200%;
-height: 200%;
+  position: fixed;
+  z-index: -2;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
 }
 #bg img {
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-margin: auto;
-min-width: 50%;
-min-height: 50%;
-} */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  min-width: 50%;
+  min-height: 50%;
+}
 
 .shift-center {
   display: flex;

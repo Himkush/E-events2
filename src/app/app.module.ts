@@ -27,16 +27,18 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
 import { ParticipationListService } from './shared/service/participation.service';
 import { LoginComponent } from './login/login.component';
 import {RegisterComponent} from './register/register.component';
-import {RegisterService} from './services/register.service';
+import {RegisterService} from './shared/service/register.service';
 import { EditUserInfoComponent } from './edit-user-info/edit-user-info.component';
 import { ParticipantsComponent } from './participants/participants.component';
 import { ParticipantService } from './shared/service/participants.service';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './shared/service/auth.service';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { CoordinatorPageComponent } from './admin/coordinator-page/coordinator-page.component';
 import { EventManageComponent } from './admin/event-manage/event-manage.component';
 import { AdminLoginComponent} from './admin/login/login.component';
+import {AuthGuard} from './shared/guards/auth.guard';
+// import {AuthGuard} from './shared/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,7 @@ import { AdminLoginComponent} from './admin/login/login.component';
   ],
   providers: [EventFormService, AngularFirestore, AuthService,
               ParticipantService, ParticipationListService, EventBusService,
-              AuthService, RegisterService],
+              AuthService, RegisterService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

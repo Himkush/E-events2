@@ -1,4 +1,4 @@
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from './auth.service';
 import { ParticipantService } from './participants.service';
 import { ParticipantsList } from './../model/participants-list.model';
 import { Injectable } from '@angular/core';
