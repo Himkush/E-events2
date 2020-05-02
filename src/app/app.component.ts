@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     } else {
       this.isAdmin = false;
     }
-    console.log(this.isAdmin);
+    // console.log(this.isAdmin);
   });
   }
 }

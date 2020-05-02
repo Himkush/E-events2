@@ -38,6 +38,10 @@ import { CoordinatorPageComponent } from './admin/coordinator-page/coordinator-p
 import { EventManageComponent } from './admin/event-manage/event-manage.component';
 import { AdminLoginComponent} from './admin/login/login.component';
 import {AuthGuard} from './shared/guards/auth.guard';
+import { ManageEventsComponent } from './manage-events/manage-events.component';
+import { LoaderComponent } from './loader/loader.component';
+import { AssignWinnersComponent } from './assign-winners/assign-winners.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 // import {AuthGuard} from './shared/guards/auth.guard';
 
 @NgModule({
@@ -58,7 +62,10 @@ import {AuthGuard} from './shared/guards/auth.guard';
     UserListComponent,
     CoordinatorPageComponent,
     EventManageComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    ManageEventsComponent,
+    LoaderComponent,
+    AssignWinnersComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +76,7 @@ import {AuthGuard} from './shared/guards/auth.guard';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
+    DragDropModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     TabsModule.forRoot(),

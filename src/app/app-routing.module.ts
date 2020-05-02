@@ -11,6 +11,9 @@ import {RegisterComponent} from './register/register.component';
 import {EditUserInfoComponent} from './edit-user-info/edit-user-info.component';
 import { ParticipantsComponent } from './participants/participants.component';
 import {AuthGuard} from './shared/guards/auth.guard';
+import {RoleGuard} from './shared/guards/role.guard';
+import {ManageEventsComponent} from './manage-events/manage-events.component';
+import {AssignWinnersComponent} from './assign-winners/assign-winners.component';
 
 
 const routes: Routes = [
@@ -19,7 +22,8 @@ const routes: Routes = [
   {path: 'edit-event', component: EventFormComponent, canActivate: [AuthGuard]},
   // {path: 'winners', component: WinnersComponent, canActivate: [AuthGuard]},
   {path: 'add-event', component: EventFormComponent, canActivate: [AuthGuard]},
-  // {path: 'manage-events', component: ManageEventsComponent, canActivate: [AuthGuard]},
+  {path: 'manage-events', component: ManageEventsComponent, canActivate: [AuthGuard]},
+  {path: 'assign-winners/:eventId/:participationId', component: AssignWinnersComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'event-form', component: EventFormComponent, canActivate: [AuthGuard]},

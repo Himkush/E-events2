@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <div class="row shift-center">
+    <h1>Assign Winners</h1>
+  </div>
+  <hr>
+  <div *ngIf="!loaded" class="my-class">
+    <div class="loader">Loading...</div>
+  </div>
+  <div *ngIf="loaded" class="row">
+
+    <div class="col-md-6">
+      <div class="drag-drop-container">
+        <h2>Participtants</h2>
+        <div class="drag-drop-list"
+             cdkDropList
+             #participantList="cdkDropList"
+             [cdkDropListData]="participants"
+             [cdkDropListConnectedTo]="[winnerList]"
+             (cdkDropListDropped)="drop($event)">
+          <div class="drag-drop-box" *ngFor="let p of participants; index as i" cdkDrag>
+            {{i+1}}. {{p.name}}
+            ({{p.email}})
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="drag-drop-container">
+        <h3>Winners</h3>
+        <div class="drag-drop-list"
+             cdkDropList
+             #winnerList="cdkDropList"
+             [cdkDropListData]="winners"
+             [cdkDropListConnectedTo]="[participantList]"
+             (cdkDropListDropped)="drop($event)">
+          <div class="drag-drop-box" *ngFor="let w of winners; index as i" cdkDrag>
+            {{i+1}}. {{w.name}}
+            ({{w.email}})
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-block btn-dark" (click)="declareResults()">Declare Results</button>
+  </div>
+</div>

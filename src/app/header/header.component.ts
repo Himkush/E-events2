@@ -16,8 +16,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.auth.getUserState()
       .subscribe( user => {
-        console.log(user);
-        this.user = user;
+        if (user) {
+          this.auth.getCurrentUserDetails().subscribe(currentUser => this.user = currentUser);
+        }
       });
   }
   toggleNavbar() {

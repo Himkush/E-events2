@@ -30,7 +30,7 @@ export class EventFormService {
           authUID: null
         };
         this.productsRef.add({...otherData, ...data}).then(res => {
-          // console.log(result);
+          this.auth.updatePostedEvents(res.id);
         });
       });
   }
@@ -66,7 +66,7 @@ export class EventFormService {
     );
     return this.events;
   }
-  getEventDetail(id?: string){
+  getEventDetail(id?: string) {
     this.itemDoc = this.db.doc<FormsModel>(`eventForm/${id}`);
     return this.itemDoc.valueChanges();
   }

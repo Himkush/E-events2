@@ -12,6 +12,6 @@ export interface UserModel {
   participatedEvents?: string[];
   eventForm: any[];
   participation: any[];
-  postedEvents: string[];
+  postedEvents: any[];
   disabled: boolean;
 }

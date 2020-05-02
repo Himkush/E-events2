@@ -18,6 +18,7 @@ export class AuthService {
   // eventAuthError$ = this.eventAuthError.asObservable();
   productsRef: AngularFirestoreCollection<any>;
   currentUser: AngularFirestoreDocument<UserModel>;
+  user: any;
   newUser: UserModel;
   constructor(private afAuth: AngularFireAuth,
               private db: AngularFirestore,
@@ -30,9 +31,9 @@ export class AuthService {
     this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
       .then(userCredential => {
         this.newUser = user;
-        userCredential.user.updateProfile({
-          displayName: user.firstName + ' ' + user.lastName
-        });
+        // userCredential.user.updateProfile({
+        //   displayName: user.firstName + ' ' + user.lastName
+        // });
         this.insertUSerData(userCredential)
           .then(() => {
             alert('Registration Successful!!!');
@@ -47,13 +48,12 @@ export class AuthService {
     if (this.newUser.imageSrc === undefined) {
       this.newUser.imageSrc = '../../assets/img/avatar2.png';
     }
-    console.log(this.newUser);
     const today = new Date();
     const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
     const dateTime = date + ' ' + time;
     return this.db.doc( `Users/${userCredential.user.uid}`).set({
-      signupDate: dateTime, ...this.newUser, eventForm: []
+      signupDate: dateTime, postedEvents: [], ...this.newUser, eventForm: []
     });
   }
   login(email: string, password: string, isAdmin?: boolean) {
@@ -80,20 +80,24 @@ export class AuthService {
   getUserState() {
     return this.afAuth.authState;
   }
+  getCurrentUserUid() {
+    return this.afAuth.auth.currentUser.uid;
+  }
   getCurrentUserDetails() {
-    const uid = this.afAuth.auth.currentUser.uid;
-    this.currentUser = this.db.doc<UserModel>(`Users/${uid}`);
-    // console.log(uid);
+    this.currentUser = this.db.doc<UserModel>(`Users/${this.getCurrentUserUid()}`);
     return this.currentUser.valueChanges();
   }
   updateUser(userDetails: any) {
-    const uid = this.afAuth.auth.currentUser.uid;
+    const uid = this.getCurrentUserUid();
     this.currentUser = this.db.doc<UserModel>(`Users/${uid}`);
     this.currentUser.update(userDetails)
       .then( () => {alert('Edit Successful');
                     this.router.navigate(['/']);
                   })
       .catch((err) => alert(err));
+  }
+  updatePostedEvents(idToAdd: string) {
+    this.currentUser.update({postedEvents: firebase.firestore.FieldValue.arrayUnion(idToAdd)});
   }
   logout() {
     return this.afAuth.auth.signOut();
@@ -112,7 +116,7 @@ export class AuthService {
   addEventForm(data) {
     this.productsRef.doc(this.afAuth.auth.currentUser.uid).update(
       { participation: firebase.firestore.FieldValue.arrayUnion(data) }
-    )
+    );
   }
 }
 

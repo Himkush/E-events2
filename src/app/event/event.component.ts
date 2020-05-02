@@ -16,7 +16,7 @@ export class EventComponent implements OnInit {
   constructor(private eventService: EventFormService) { }
   date = Date.now();
   ngOnInit() {
-    if (!this.adminPage){
+    if (!this.adminPage) {
       this.adminPage = false;
     }
     this.eventService.getEvents().subscribe(items => {
@@ -32,13 +32,13 @@ export class EventComponent implements OnInit {
     });
   }
   upcomingEvents() {
-    let upEvents = this.events.filter(event => {
+    const upEvents = this.events.filter(event => {
          return event.eventDate.toDate() >= this.date;
     });
     return upEvents;
   }
   pastEvents() {
-    let pastEvents = this.events.filter(event => {
+    const pastEvents = this.events.filter(event => {
       return event.eventDate.toDate() < this.date;
     });
     return pastEvents;
