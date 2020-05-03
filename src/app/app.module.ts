@@ -42,6 +42,7 @@ import { ManageEventsComponent } from './manage-events/manage-events.component';
 import { LoaderComponent } from './loader/loader.component';
 import { AssignWinnersComponent } from './assign-winners/assign-winners.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { WinnersComponent } from './winners/winners.component';
 // import {AuthGuard} from './shared/guards/auth.guard';
 
 @NgModule({
@@ -65,7 +66,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     AdminLoginComponent,
     ManageEventsComponent,
     LoaderComponent,
-    AssignWinnersComponent
+    AssignWinnersComponent,
+    WinnersComponent
   ],
   imports: [
     BrowserModule,

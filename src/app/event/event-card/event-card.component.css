@@ -160,3 +160,6 @@ button{
 .btn-15:active {
   top: 2px;
 }
+.participated:disabled {
+  cursor: no-drop;
+}

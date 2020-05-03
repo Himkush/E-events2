@@ -20,6 +20,6 @@
     <h4 class="card__text">Caption Text</h4>
     <p class="card__description">{{event.eventDescription}}</p>
     <button type="button" class="custom-btn btn-15  pull-left" (click)="editEvent()">Edit</button>
-    <button *ngIf="!event.isAdmin && (event.eventDate.toDate() > this.date)" class="custom-btn btn-15 pull-right" [disabled]="participated" (click)="participate()">{{participated ? 'Participated':'Participate'}}</button>
+    <button *ngIf="!event.isAdmin && (event.eventDate.toDate() > this.date)" class="custom-btn btn-15 pull-right participated" [disabled]="participated" (click)="participate()">{{participated ? 'Participated':'Participate'}}</button>
   </div>
 </div>

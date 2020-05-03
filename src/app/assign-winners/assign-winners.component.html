@@ -1,6 +1,9 @@
 <div class="container mt-5">
   <div class="row shift-center">
-    <h1>Assign Winners</h1>
+    <h1 class="text-center">Assign Winners (<span><a [routerLink]="['/event', eventId]">{{currentEvent.eventName}}</a></span>)</h1>
+  </div>
+  <div class="row shift-center">
+    <h4 class="text-secondary text-center">Drag the names form: Participants List -> Winners List</h4>
   </div>
   <hr>
   <div *ngIf="!loaded" class="my-class">

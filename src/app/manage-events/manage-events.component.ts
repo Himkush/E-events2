@@ -31,7 +31,11 @@ export class ManageEventsComponent implements OnInit {
   }
 
   getRequiredEvents(eventIds: any[]) {
-    const requiredEvents = this.events.filter(event => eventIds.includes(event.id));
-    return requiredEvents;
+    if (eventIds && eventIds.length > 0) {
+      const requiredEvents = this.events.filter(event => eventIds.includes(event.id));
+      return requiredEvents;
+    } else {
+      return null;
+    }
   }
 }

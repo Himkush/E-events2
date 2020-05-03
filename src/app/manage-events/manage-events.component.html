@@ -1,14 +1,15 @@
-<app-loader></app-loader>
-
 <div class="container">
 
   <div class="row  ml-xs-2 mt-5 ">
 
-      <div class="col-12">
-        <tabset>
-          <tab heading="Participated"  id="tab1">
-            <div class="table-responsive-md">
-            <table class="table" *ngIf="loaded">
+    <div class="col-12">
+      <tabset>
+        <tab heading="Participated" id="tab1">
+          <div *ngIf="loaded && !participatedEvents">
+            <h3 class="text-secondary">You have not Participated in any Event!!</h3>
+          </div>
+          <div class="table-responsive-md" *ngIf="loaded && participatedEvents">
+            <table class="table">
               <thead class="thead-dark">
               <tr>
                 <th>Name</th>
@@ -30,14 +31,18 @@
               </tr>
               </tbody>
             </table>
-            </div>
-            <div *ngIf="!loaded" class="my-class">
-              <div class="loader">Loading...</div>
-            </div>
-          </tab>
-          <tab heading="Posted">
-            <div class="table-responsive-md">
-            <table class="table" *ngIf="loaded">
+          </div>
+          <div *ngIf="!loaded" class="my-class">
+            <div class="loader">Loading...</div>
+          </div>
+        </tab>
+
+        <tab heading="Posted">
+          <div *ngIf="loaded && !participatedEvents">
+            <h3 class="text-secondary">You have not Participated in any Event!!</h3>
+          </div>
+          <div class="table-responsive-md" *ngIf="loaded && postedEvents">
+            <table class="table">
               <thead class="thead-dark">
               <tr>
                 <th>Name</th>
@@ -59,7 +64,8 @@
                   <a class="btn btn-outline-dark w-100" [routerLink]="['../event', x.id]" role="button">Details</a>
                 </td>
                 <td>
-                  <a class="btn btn-outline-dark w-100" [routerLink]="['/assign-winners', x.id, x.participation]" role="button">Assign Winners</a>
+                  <a class="btn btn-outline-dark w-100" [routerLink]="['/assign-winners', x.id, x.participation]"
+                     role="button">Assign Winners</a>
                 </td>
                 <td>
                   <a class="btn btn-outline-dark w-100" role="button">Edit</a>
@@ -67,9 +73,9 @@
               </tr>
               </tbody>
             </table>
-            </div>
-          </tab>
-        </tabset>
-      </div>
+          </div>
+        </tab>
+      </tabset>
+    </div>
   </div>
 </div>

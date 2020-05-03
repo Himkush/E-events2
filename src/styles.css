@@ -3,6 +3,9 @@
 html {
   box-sizing: border-box;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
 
 *, *:before, *:after {
   box-sizing: inherit;
@@ -74,6 +77,10 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
+}
+
+button:disabled {
+  cursor: no-drop;
 }
 
 @-webkit-keyframes load4 {
@@ -148,5 +155,3 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

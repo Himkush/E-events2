@@ -27,7 +27,8 @@ export class EventFormService {
     this.participationListService.createParticipantsDocument().then(result => {
         const otherData = {
           participation: result.id,
-          authUID: null
+          authUID: this.auth.getCurrentUserUid(),
+          winners: []
         };
         this.productsRef.add({...otherData, ...data}).then(res => {
           this.auth.updatePostedEvents(res.id);
@@ -38,8 +39,14 @@ export class EventFormService {
     this.itemDoc = this.db.doc<FormsModel>(`eventForm/${id}`);
     this.itemDoc.update(data).
         then(() => {}).
-        catch(err => {console.log(err);}
+        catch(err => {console.log(err); }
         );
+  }
+  updateEventWinners(winnerList, id: string) {
+    this.itemDoc = this.db.doc<FormsModel>(`eventForm/${id}`);
+    this.itemDoc.update({winners: winnerList})
+      .then(() => alert('Winners Uploaded'))
+      .catch(err => console.log(err));
   }
   uploadEventImage(filePath: string, image: any, callback) {
     const fileRef = this.storage.ref(filePath);

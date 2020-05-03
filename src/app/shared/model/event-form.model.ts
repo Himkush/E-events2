@@ -15,8 +15,9 @@ export interface FormsModel {
   participation?: string;
   eventCordinator?: any;
   isAdmin?:any;
+  winners?: string[];
 }
-export interface Cordinator {
+export interface Coordinator {
   name: string;
   contact?: string;
 }

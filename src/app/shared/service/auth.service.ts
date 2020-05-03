@@ -53,7 +53,7 @@ export class AuthService {
     const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
     const dateTime = date + ' ' + time;
     return this.db.doc( `Users/${userCredential.user.uid}`).set({
-      signupDate: dateTime, postedEvents: [], ...this.newUser, eventForm: []
+      signupDate: dateTime, participation: [], postedEvents: [], ...this.newUser, eventForm: []
     });
   }
   login(email: string, password: string, isAdmin?: boolean) {

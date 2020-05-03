@@ -11,14 +11,13 @@ export class RoleGuard implements CanActivate {
   constructor(private auth: AuthService,
               private router: Router) {}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    console.log('Role');
     this.auth.getCurrentUserDetails().subscribe( (user) => {
       if (user.role === 'candidate') {
-        console.log(user.role);
-        this.router.navigateByUrl(route.url[0].path);
+        alert('You are NOT REGISTERD AS COORDINATOR and CANNOT ADD EVENTS!!');
+        this.router.navigateByUrl('/');
       }
     });
-    return false;
+    return true;
   }
 
 }
