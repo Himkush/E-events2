@@ -3,6 +3,8 @@ import {AuthService} from '../shared/service/auth.service';
 import {EventFormService} from '../shared/service/event-form.service';
 import {UserModel} from '../shared/model/user.model';
 import {FormsModel} from '../shared/model/event-form.model';
+import {EventBusService} from '../shared/service/event-bus.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-manage-events',
@@ -17,7 +19,9 @@ export class ManageEventsComponent implements OnInit {
   date = Date.now();
   events: FormsModel[];
   constructor(private authService: AuthService,
-              private eventService: EventFormService) { }
+              private eventService: EventFormService,
+              private eventBusService: EventBusService,
+              private router: Router) { }
 
   ngOnInit() {
     this.eventService.getEvents().subscribe(events => {
@@ -37,5 +41,12 @@ export class ManageEventsComponent implements OnInit {
     } else {
       return null;
     }
+  }
+
+  editEvent(editEvent) {
+    // this.eventFormService.setEventToEdit(this.event);
+    // this.eventBusService.announce('EVENT_TO_EDIT', this.event);
+    editEvent.isAdmin ? this.router.navigate(['/admin/edit-event']) : this.router.navigate(['edit-event']);
+    setTimeout(er => this.eventBusService.announce('EVENT_TO_EDIT', editEvent));
   }
 }

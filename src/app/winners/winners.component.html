@@ -1,1 +1,37 @@
-<p>winners works!</p>
+<div class="container mt-5 pt-1">
+  <h1 class="text-center">Winners</h1>
+  <hr>
+
+  <div *ngIf="!loaded" class="my-class">
+    <div class="loader">Loading...</div>
+  </div>
+
+  <div *ngIf="loaded" class="accordion" id="winnerAccordion">
+    <div *ngFor="let e of eventsList;index as i" class="card">
+      <div class="card-header" [id]="'heading'+i">
+        <span class="mb-0 text-uppercase">
+          <a class="btn btn-link heading" type="button" data-toggle="collapse" [href]="'#collapse'+i" aria-expanded="true"
+             [attr.aria-controls]="'collapse'+i" (click)="getWinnerDetails(e.winners, eventIds[i])">
+            {{e.eventName}} <i class="fa fa-caret-down"></i>
+          </a>
+          <a class="text-secondary" [routerLink]="['/event', eventIds[i]]">[Details]</a>
+        </span>
+        <div class="pull-right mt-1"><i class="fa fa-calendar"></i>{{e.eventDate.toDate() | date}}</div>
+        <div class="pull-right mt-1"><i class="fa fa-clock-o"></i>{{e.eventDate.toDate() | date: 'shortTime'}}</div>
+      </div>
+
+      <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i"
+           data-parent="#winnerAccordion">
+        <div class="card-body">
+          <div class="row">
+            <div *ngFor="let winner of winnersList;index as i" class="col-md-4 border p-3">
+              <span class="badge badge-pill badge-primary position">{{i+1}}</span> {{winner.firstName + ' ' + winner.lastName}}
+              <span class="text-primary">( {{winner.email}} )</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

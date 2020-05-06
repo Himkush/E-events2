@@ -66,9 +66,10 @@
                 <td>
                   <a class="btn btn-outline-dark w-100" [routerLink]="['/assign-winners', x.id, x.participation]"
                      role="button">Assign Winners</a>
+                     <!--[disabled]="(x.eventDate.toDate() > this.date)"-->
                 </td>
                 <td>
-                  <a class="btn btn-outline-dark w-100" role="button">Edit</a>
+                  <button class="btn btn-outline-dark w-100" role="button" [disabled]="(x.eventDate.toDate() < this.date)" (click)="editEvent(x)">Edit</button>
                 </td>
               </tr>
               </tbody>

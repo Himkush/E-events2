@@ -50,10 +50,10 @@ export class EventCardComponent implements OnInit {
   participate() {
     if (this.user) {
       alert('Are you sure you want to participate ?');
-      this.participantService.createNewParticipant(this.user.uid).
-                  then(data => this.participationListService.addNewParticipant(this.event.participation, data.id).then(
-                    data => {this.auth.addEventForm(this.event.id); }
-                  ));
+      this.participantService.createNewParticipant(this.user.uid)
+        .then(data => this.participationListService.addNewParticipant(this.event.participation, data.id)
+        .then(() => {this.auth.addEventForm(this.event.id); }
+        ));
     } else {
       this.router.navigate(['login']);
     }
