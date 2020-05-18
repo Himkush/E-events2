@@ -19,8 +19,8 @@ export class EventComponent implements OnInit {
     if (!this.adminPage) {
       this.adminPage = false;
     }
-    this.eventService.getEvents().subscribe(items => {
-      this.events = items.map(x => ({ ...x, isAdmin: this.adminPage }));
+    this.eventService.getEvents('main').subscribe(items => {
+      this.events = items;
       this.loaded = true;
       this.upEvents = this.upcomingEvents();
       this.pEvents = this.pastEvents();

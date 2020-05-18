@@ -4,6 +4,7 @@ import {RegisterService} from '../shared/service/register.service';
 import {AuthService} from '../shared/service/auth.service';
 import {UserModel} from '../shared/model/user.model';
 import {Router} from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -14,12 +15,13 @@ export class RegisterComponent implements OnInit {
   selectedImage: any = null;
   editState = false;
   registerForm: FormGroup;
-  imageUrl: string;
+  imageUrl = '../../assets/img/avatar2.png';
   formSubmitted = false;
   user: UserModel = null;
   // @ViewChild('')
   constructor(private registerService: RegisterService,
               private auth: AuthService,
+              private sanitizer: DomSanitizer,
               private router: Router) {
     this.resetForm();
   }
@@ -74,10 +76,11 @@ export class RegisterComponent implements OnInit {
       // this.registerForm.reset();
     } else {
       this.auth.createUser(this.registerForm.value);
-      this.router.navigate(['/login']);
+
     }
   }
   addUser() {
+    console.log('inside uploadUserImage');
     if (this.registerForm.valid && (this.registerForm.get('password').value === this.registerForm.get('cpassword').value)) {
       // this.registerService.addUser(this.user);
       if (this.selectedImage) {
@@ -93,13 +96,18 @@ export class RegisterComponent implements OnInit {
     }
   }
   showPreview(event: any) {
+    console.log(this.imageUrl);
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (e: any) => this.imageUrl = e.target.result;
       this.selectedImage = event.target.files[0];
     } else {
-      this.imageUrl = '../../assets/img/avatar2.png';
+      if (!this.user) {
+       this.imageUrl = '../../assets/img/avatar2.png';
+      } else {
+        this.imageUrl = this.user.imageSrc;
+      }
       this.selectedImage = null;
     }
   }
@@ -107,7 +115,9 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       if (this.selectedImage) {
         const filePath = `userImages/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+        this.registerService.deleteUserImage(this.user.imageSrc).then(res => {
         this.registerService.uploadUserImage(filePath, this.selectedImage, this.some.bind(this));
+        }).catch(err => alert(err));
       } else {
         this.auth.updateUser(this.registerForm.value);
       }

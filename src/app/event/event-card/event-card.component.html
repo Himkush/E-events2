@@ -13,13 +13,16 @@
         <span class="date">
           <i class="fa fa-calendar" aria-hidden="true"></i> {{event.eventDate.toDate()| date: 'mediumDate'}}
         </span>
-        <span class="category" style="margin-left: 40px;"><i class="fa fa-tag" aria-hidden="true"></i> Cultural
+        <span class="category" style="margin-left: 40px;"><i class="fa fa-tag" aria-hidden="true"></i>
           {{event.eventType}}</span>
       </div>
     </div>
-    <h4 class="card__text">Caption Text</h4>
+    <h4 class="card__text">{{event.eventCaption}}</h4>
     <p class="card__description">{{event.eventDescription}}</p>
-    <button type="button" class="custom-btn btn-15  pull-left" (click)="editEvent()">Edit</button>
-    <button *ngIf="!event.isAdmin && (event.eventDate.toDate() > this.date)" class="custom-btn btn-15 pull-right participated" [disabled]="participated" (click)="participate()">{{participated ? 'Participated':'Participate'}}</button>
+    <button *ngIf="isCoordinator || admin" type="button" class="custom-btn btn-15  pull-left" (click)="editEvent()">Edit</button>
+    <button *ngIf="!admin && !isCreator() && (event.eventDate.toDate() > this.date)" class="custom-btn btn-15 pull-right participated" [disabled]="participated" (click)="participate()">{{participated  ? 'Participated':'Participate'}}</button>
+    <button *ngIf="admin && page==='approvedEvents'" class="custom-btn btn-15 pull-right participated" [disabled]="event.approved" (click)="approve()"> {{event.approved ? 'Approved':'Approve'}}</button>
+
+
   </div>
 </div>

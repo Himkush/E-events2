@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     } else {
       this.formSubmitted = true;
     }
+    this.loginForm.reset();
   }
   resetPassword() {
     if (this.resetForm.valid) {

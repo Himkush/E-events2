@@ -20,7 +20,7 @@ select {
   height: 200px;
   border: 10px solid gray;
   border-radius: 50%;
-  background-image: url("../../assets/img/avatar2.png");
+  /* background-image: url("../../assets/img/avatar2.png"); */
   background-repeat: no-repeat;
   background-size: cover;
 }

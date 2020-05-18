@@ -7,17 +7,17 @@
         <tab heading="Live / Upcoming"  id="tab1">
           <div *ngIf="loaded">
             <div *ngFor="let x of upEvents">
-              <app-event-card [event]="x" ></app-event-card>
+              <app-event-card [event]="x" [admin]="adminPage"></app-event-card>
             </div>
           </div>
           <div *ngIf="!loaded" class="my-class">
             <div class="loader">Loading...</div>
           </div>
         </tab>
-        <tab heading="Past">
+        <tab heading="Past" id="tab2">
           <div *ngIf="loaded" style="min-height: 400px;">
             <div *ngFor="let x of pEvents">
-              <app-event-card [event]="x"></app-event-card>
+              <app-event-card [event]="x" [admin]="adminPage"></app-event-card>
             </div>
           </div>
           <div *ngIf="!loaded" class="my-class">

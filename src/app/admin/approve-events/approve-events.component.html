@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row  ml-xs-2 mt-5 ">
+
+  <div class="col-sm-8 col-xs-12 mt-2">
+    <div>
+      <tabset>
+        <tab heading="For Approval" id="tab1">
+          <div *ngIf="loaded">
+            <div *ngFor="let x of napEvents">
+              <app-event-card [event]="x" [page]="'approvedEvents'" [admin]="adminPage"></app-event-card>
+            </div>
+          </div>
+          <div *ngIf="!loaded" class="my-class">
+            <div class="loader">Loading...</div>
+          </div>
+        </tab>
+        <tab heading="Approved" id="tab2">
+          <div *ngIf="loaded" style="min-height: 400px;">
+            <div *ngFor="let x of apEvents">
+              <app-event-card  [event]="x" [page]="'approvedEvents'" [admin]="adminPage"></app-event-card>
+            </div>
+          </div>
+          <div *ngIf="!loaded" class="my-class">
+            <div class="loader">Loading...</div>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
+</div>

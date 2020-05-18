@@ -26,7 +26,7 @@
         </li>
         <li *ngIf="user" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
-            {{user.firstName+' '+user.lastName}}
+            {{userName}}
           </a>
           <div class="dropdown-menu" aria-labelledby="userDropdown">
             <a class="dropdown-item" href="#" routerLink="/manage-events">Manage Your Events</a>

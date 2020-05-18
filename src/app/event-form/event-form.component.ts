@@ -126,7 +126,7 @@ export class EventFormComponent implements OnInit {
   updateEvent() {
     this.eventForm.controls.eventImageUrl.setValue(this.imgSrc);
     let data = { participation: this.editEventForm.participation,
-                    authUID: this.editEventForm.authUid || null,
+                    authUID: this.editEventForm.authUID || null,
                     ...this.eventForm.value};
     if (this.imgSrc === this.editEventForm.eventImageUrl) {
       this.eventFormService.updateEvent({...data}, this.editEventForm.id);

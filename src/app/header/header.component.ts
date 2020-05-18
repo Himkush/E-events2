@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class HeaderComponent implements OnInit {
   navbarOpen = false;
   user: any;
+  userName: string
   constructor(private auth: AuthService,
               private router: Router) { }
 
@@ -17,7 +18,12 @@ export class HeaderComponent implements OnInit {
     this.auth.getUserState()
       .subscribe( user => {
         if (user) {
-          this.auth.getCurrentUserDetails().subscribe(currentUser => this.user = currentUser);
+          this.auth.getCurrentUserDetails().subscribe(currentUser => {
+            this.user = currentUser;
+            this.userName = currentUser.role === 'admin' ? 'Admin' : user.displayName;
+          });
+        } else {
+          this.user = null;
         }
       });
   }

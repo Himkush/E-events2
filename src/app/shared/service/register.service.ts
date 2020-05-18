@@ -25,6 +25,7 @@ export class RegisterService {
     // }));
   }
   uploadUserImage(filePath: string, image: any, callback) {
+    console.log('inside uploadUserImage');
     this.fileRef = this.storage.ref(filePath);
     this.storage.upload(filePath, image)
       .then(result => {

@@ -1,3 +1,4 @@
+import { ApproveEventsComponent } from './admin/approve-events/approve-events.component';
 import { AdminLoginComponent } from './admin/login/login.component';
 import { EventManageComponent } from './admin/event-manage/event-manage.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
@@ -20,7 +21,7 @@ import {WinnersComponent} from './winners/winners.component';
 const routes: Routes = [
   {path: '', component: EventComponent},
   {path: 'event/:id', component: EventDetailComponent, canActivate: [AuthGuard]},
-  {path: 'edit-event', component: EventFormComponent, canActivate: [AuthGuard]},
+  {path: 'edit-event', component: EventFormComponent, canActivate: [AuthGuard, RoleGuard]},
   {path: 'winners', component: WinnersComponent, canActivate: [AuthGuard]},
   {path: 'add-event', component: EventFormComponent, canActivate: [AuthGuard, RoleGuard]},
   {path: 'manage-events', component: ManageEventsComponent, canActivate: [AuthGuard]},
@@ -45,6 +46,10 @@ const routes: Routes = [
       },
       { path: 'event/:id',
        component: EventDetailComponent
+      },
+      {
+        path: 'approve-events',
+        component: ApproveEventsComponent
       },
       {
         path: '',

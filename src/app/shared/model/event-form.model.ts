@@ -2,7 +2,7 @@ export interface FormsModel {
   eventName: string;
   eventCaption: string;
   eventImageUrl?: string;
-  authUid?: string;
+  authUID?: string;
   eventType: string;
   eventDate: any;
   eventTime: any;
@@ -15,6 +15,7 @@ export interface FormsModel {
   participation?: string;
   eventCordinator?: any;
   isAdmin?:any;
+  approved?: boolean;
   winners?: string[];
 }
 export interface Coordinator {

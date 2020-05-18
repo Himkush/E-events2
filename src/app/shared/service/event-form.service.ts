@@ -27,6 +27,7 @@ export class EventFormService {
     this.participationListService.createParticipantsDocument().then(result => {
         const otherData = {
           participation: result.id,
+          approved: false,
           authUID: this.auth.getCurrentUserUid(),
           winners: []
         };
@@ -62,8 +63,13 @@ export class EventFormService {
     return this.storage.storage.refFromURL(url).delete();
   }
 
-  getEvents() {
-    this.productsRef = this.db.collection<FormsModel>('eventForm');
+  getEvents(page?: string) {
+    if(page === 'main') {
+      this.productsRef = this.db.collection<FormsModel>('eventForm', ref => ref.where('approved', '==', true));
+    } else {
+      this.productsRef = this.db.collection<FormsModel>('eventForm');
+    }
+
     this.events = this.productsRef.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as FormsModel;
