@@ -20,7 +20,7 @@
     <h4 class="card__text">{{event.eventCaption}}</h4>
     <p class="card__description">{{event.eventDescription}}</p>
     <button *ngIf="isCoordinator || admin" type="button" class="custom-btn btn-15  pull-left" (click)="editEvent()">Edit</button>
-    <button *ngIf="!admin && !isCreator() && (event.eventDate.toDate() > this.date)" class="custom-btn btn-15 pull-right participated" [disabled]="participated" (click)="participate()">{{participated  ? 'Participated':'Participate'}}</button>
+    <button *ngIf="!admin && user && !isCreator() && (event.eventDate.toDate() > this.date)" class="custom-btn btn-15 pull-right participated" [disabled]="participated" (click)="participate()">{{participated  ? 'Participated':'Participate'}}</button>
     <button *ngIf="admin && page==='approvedEvents'" class="custom-btn btn-15 pull-right participated" [disabled]="event.approved" (click)="approve()"> {{event.approved ? 'Approved':'Approve'}}</button>
 
 

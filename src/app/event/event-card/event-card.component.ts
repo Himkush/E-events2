@@ -46,7 +46,6 @@ export class EventCardComponent implements OnInit, OnDestroy {
       this.admin = 'adminPage';
     }
     this.isCoordinator = this.auth.user && this.auth.user.role === 'coordinator' && this.isCreator();
-    console.log(this.event.authUID,this.auth.getCurrentUserUid());
     if (this.auth.user && this.auth.user.role !== 'admin') {
       this.userData = this.auth.user.participation || this.auth.user.data.eventForm;
       this.participated = this.userData.includes(this.event.id) || this.event.authUID === this.auth.getCurrentUserUid();
