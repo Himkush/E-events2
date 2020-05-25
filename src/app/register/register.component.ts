@@ -4,7 +4,7 @@ import {RegisterService} from '../shared/service/register.service';
 import {AuthService} from '../shared/service/auth.service';
 import {UserModel} from '../shared/model/user.model';
 import {Router} from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -15,9 +15,10 @@ export class RegisterComponent implements OnInit {
   selectedImage: any = null;
   editState = false;
   registerForm: FormGroup;
-  imageUrl = '../../assets/img/avatar2.png';
+  imageUrl = '../../assets/img/avatar2.jpg';
   formSubmitted = false;
   user: UserModel = null;
+
   // @ViewChild('')
   constructor(private registerService: RegisterService,
               private auth: AuthService,
@@ -25,6 +26,7 @@ export class RegisterComponent implements OnInit {
               private router: Router) {
     this.resetForm();
   }
+
   ngOnInit() {
     // if (this.auth.isUser()) {
     //   this.editState = true;
@@ -42,7 +44,8 @@ export class RegisterComponent implements OnInit {
           lastName: new FormControl(null, Validators.required),
           rollNumber: new FormControl(null, Validators.required),
           year: new FormControl(null, Validators.required),
-          mobile: new FormControl(null, Validators.required),
+          mobile: new FormControl(null, [Validators.required,
+            Validators.maxLength(10), Validators.minLength(10), Validators.pattern(/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/)]),
           email: new FormControl(null, Validators.required),
           department: new FormControl(null, Validators.required),
           role: new FormControl(null, Validators.required),
@@ -53,6 +56,7 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
+
   initForm() {
     this.registerForm = new FormGroup({
       firstName: new FormControl(this.user.firstName, Validators.required),
@@ -69,6 +73,7 @@ export class RegisterComponent implements OnInit {
     });
     this.imageUrl = this.user.imageSrc;
   }
+
   some = (url) => {
     this.registerForm.controls.imageSrc.setValue(url);
     if (this.editState) {
@@ -79,6 +84,7 @@ export class RegisterComponent implements OnInit {
 
     }
   }
+
   addUser() {
     console.log('inside uploadUserImage');
     if (this.registerForm.valid && (this.registerForm.get('password').value === this.registerForm.get('cpassword').value)) {
@@ -89,12 +95,13 @@ export class RegisterComponent implements OnInit {
       } else {
         this.auth.createUser(this.registerForm.value);
         console.log('in');
-        this.router.navigate(['/login']);
+        // this.router.navigate(['/']);
       }
     } else {
       this.formSubmitted = true;
     }
   }
+
   showPreview(event: any) {
     console.log(this.imageUrl);
     if (event.target.files && event.target.files[0]) {
@@ -104,27 +111,29 @@ export class RegisterComponent implements OnInit {
       this.selectedImage = event.target.files[0];
     } else {
       if (!this.user) {
-       this.imageUrl = '../../assets/img/avatar2.png';
+        this.imageUrl = '../../assets/img/avatar2.png';
       } else {
         this.imageUrl = this.user.imageSrc;
       }
       this.selectedImage = null;
     }
   }
+
   editUser() {
     if (this.registerForm.valid) {
       if (this.selectedImage) {
         const filePath = `userImages/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
         this.registerService.deleteUserImage(this.user.imageSrc).then(res => {
-        this.registerService.uploadUserImage(filePath, this.selectedImage, this.some.bind(this));
+          this.registerService.uploadUserImage(filePath, this.selectedImage, this.some.bind(this));
         }).catch(err => alert(err));
       } else {
         this.auth.updateUser(this.registerForm.value);
       }
     }
   }
+
   resetForm() {
-    this.imageUrl = '../../assets/img/avatar2.png';
+    this.imageUrl = '../../assets/img/avatar2.jpg';
     this.selectedImage = null;
   }
 }

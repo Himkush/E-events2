@@ -32,6 +32,7 @@ export class EventDetailComponent implements OnInit, OnDestroy {
     this.access = data;
     this.eventFormService.getEventDetail(this.id).subscribe(result => {
       this.event = result;
+      console.log(this.event);
       this.loaded = true;
     });
   }

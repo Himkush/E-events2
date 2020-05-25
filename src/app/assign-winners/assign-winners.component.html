@@ -1,16 +1,21 @@
 <div class="container mt-5">
   <div class="row shift-center">
-    <h1 class="text-center">Assign Winners (<span><a [routerLink]="['/event', eventId]">{{currentEvent.eventName}}</a></span>)</h1>
+    <h1 class="text-center">Assign Winners (<span *ngIf="currentEvent"><a [routerLink]="['/event', eventId]">{{currentEvent.eventName}}</a></span>)</h1>
   </div>
   <div class="row shift-center">
     <h4 class="text-secondary text-center">Drag the names from: Participants List -> Winners List</h4>
   </div>
   <hr>
+
   <div *ngIf="!loaded" class="my-class">
     <div class="loader">Loading...</div>
   </div>
-  <div *ngIf="loaded" class="row">
 
+  <div *ngIf="!participants || participants[0]===null">
+    <h2 class="text-secondary text-center">There are <span class="text-danger">NO PARTICIPANTS </span>in this event.</h2>
+  </div>
+
+  <div *ngIf="loaded && (participants && participants[0]!==null)" class="row text-center">
     <div class="col-md-6">
       <div class="drag-drop-container">
         <h2>Participtants</h2>

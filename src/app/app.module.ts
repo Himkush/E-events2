@@ -44,6 +44,7 @@ import { AssignWinnersComponent } from './assign-winners/assign-winners.componen
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { WinnersComponent } from './winners/winners.component';
 import { ApproveEventsComponent } from './admin/approve-events/approve-events.component';
+import {FilterPipe} from './shared/pipes/filter.pipe';
 // import {AuthGuard} from './shared/guards/auth.guard';
 
 @NgModule({
@@ -69,7 +70,8 @@ import { ApproveEventsComponent } from './admin/approve-events/approve-events.co
     LoaderComponent,
     AssignWinnersComponent,
     WinnersComponent,
-    ApproveEventsComponent
+    ApproveEventsComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -80,6 +82,7 @@ import { ApproveEventsComponent } from './admin/approve-events/approve-events.co
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
+    FormsModule,
     DragDropModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),

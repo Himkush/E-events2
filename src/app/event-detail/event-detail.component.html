@@ -54,7 +54,7 @@
 
           <p class="lead">
             <span class="mr-1" *ngIf="event.registrationFees>0"> Registration Fees: &#8377;<span>{{event.registrationFees}}</span></span>
-            <span class="mr-1 badge badge-info" *ngIf="event.registrationFees<=0">Free</span>
+            <span class="mr-1 badge badge-info" *ngIf="event.registrationFees">{{event.registrationFees}}</span>
           </p>
 
           <p class="lead font-weight-bold mb-0">Description</p>

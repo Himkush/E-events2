@@ -3,13 +3,14 @@
   <div class="row  ml-xs-2 mt-5 ">
 
     <div class="col-12">
+
       <tabset>
         <tab heading="Participated" id="tab1">
           <div *ngIf="loaded && !participatedEvents">
             <h3 class="text-secondary">You have not Participated in any Event!!</h3>
           </div>
           <div class="table-responsive-md" *ngIf="loaded && participatedEvents">
-            <table class="table">
+            <table class="table table-striped">
               <thead class="thead-dark">
               <tr>
                 <th>Name</th>
@@ -20,7 +21,7 @@
               </thead>
               <tbody>
               <tr *ngFor="let x of participatedEvents">
-                <td class="text-uppercase">{{x.eventName}}
+                <td class="text-uppercase font-weight-bolder">{{x.eventName}}
                   <span *ngIf="x.eventDate.toDate() < this.date" class="badge badge-pill badge-info">ended</span>
                 </td>
                 <td>{{x.eventDate.toDate() | date: 'mediumDate'}}</td>
@@ -38,9 +39,20 @@
         </tab>
 
         <tab heading="Posted">
-          <div *ngIf="loaded && !participatedEvents">
-            <h3 class="text-secondary">You have not Participated in any Event!!</h3>
+          <div *ngIf="loaded && !postedEvents">
+            <h3 class="text-secondary">You have not Posted in any Event!!</h3>
           </div>
+
+          <!--Filter-->
+          <div class="form-group">
+            <label class="font-weight-bolder" for="approveFilter">Filter By:</label>
+            <select class="form-control" id="approveFilter" [(ngModel)]="approveFilterValue">
+              <option value="">All</option>
+              <option value="true">Approved</option>
+              <option value="false">Not Approved</option>
+            </select>
+          </div>
+
           <div class="table-responsive-md" *ngIf="loaded && postedEvents">
             <table class="table">
               <thead class="thead-dark">
@@ -54,7 +66,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let x of postedEvents">
+              <tr *ngFor="let x of postedEvents | filter: 'approved': approveFilterValue" [ngClass]="{'table-success': x.approved, 'table-danger': !x.approved}">
                 <td class="text-uppercase">{{x.eventName}}
                   <span *ngIf="x.eventDate.toDate() < this.date" class="badge badge-pill badge-info">ended</span>
                 </td>

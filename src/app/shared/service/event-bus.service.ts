@@ -5,7 +5,7 @@ export class EventBusService {
   private bus = new Subject<{ event: string, data?: any }>();
   public data: string;
 
-  public announce(event: string, data?: any) {
+  public announce( event: string, data?: any) {
     this.bus.next({ event, data });
   }
 

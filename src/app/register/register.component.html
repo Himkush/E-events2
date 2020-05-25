@@ -17,7 +17,8 @@
         <label class="custom-control-label" for="candidateradio">Candidate</label>
       </div>
       <div class="custom-control custom-radio">
-        <input class="custom-control-input" id="coordinatorradio" type="radio" value="coordinator" formControlName="role">
+        <input class="custom-control-input" id="coordinatorradio" type="radio" value="coordinator"
+               formControlName="role">
         <label class="custom-control-label" for="coordinatorradio">Coordinator</label>
       </div>
     </div>
@@ -35,24 +36,28 @@
         </div>
         <div class="">
           <label for="name" class="col-form-label">First Name</label>
-          <input type="text" class="form-control" id="name" name="name" placeholder="First Name" formControlName="firstName">
+          <input type="text" class="form-control" id="name" name="name" placeholder="First Name"
+                 formControlName="firstName">
           <!--<span *ngIf="">* Name is required</span>-->
         </div>
         <div class="">
           <label for="lname" class="col-form-label">Last Name</label>
-          <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" formControlName="lastName">
+          <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name"
+                 formControlName="lastName">
           <!--<span>* Name is required</span>-->
         </div>
         <div *ngIf="!editState" class="">
           <label for="rollno" class="col-form-label">Roll Number</label>
-          <input type="text" class="form-control" id="rollno" name="rollno" placeholder="Roll Number" formControlName="rollNumber">
+          <input type="text" class="form-control" id="rollno" name="rollno" placeholder="Roll Number"
+                 formControlName="rollNumber">
           <!--<span>* Name is required</span>-->
         </div>
       </div>
       <div class="col-md-6">
         <div *ngIf="editState" class="">
           <label for="rollnoedit" class="col-form-label">Roll Number</label>
-          <input type="text" class="form-control" id="rollnoedit" name="rollno" placeholder="Roll Number" formControlName="rollNumber">
+          <input type="text" class="form-control" id="rollnoedit" name="rollno" placeholder="Roll Number"
+                 formControlName="rollNumber">
           <!--<span>* Name is required</span>-->
         </div>
         <div class="">
@@ -62,8 +67,13 @@
         </div>
         <div class="">
           <label for="mobile" class="col-form-label">Mobile Number</label>
-          <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile Number" formControlName="mobile">
-          <!--<span>* Name is required</span>-->
+          <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile Number"
+                 formControlName="mobile">
+          <div
+            *ngIf="((registerForm.get('mobile').touched && registerForm.get('mobile').invalid) && (registerForm.get('mobile').touched && formSubmitted))"
+            class="badge-pill alert-danger mt-1" role="alert">
+            Please Enter 10 DIGIT Valid Mobile Number
+          </div>
         </div>
         <div class="">
           <label for="department" class="col-form-label">Department</label>
@@ -92,24 +102,31 @@
           <label for="password" class="col-form-label">Set Password</label>
           <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
           <!--<span>* Name is required</span>-->
-          <div *ngIf="registerForm.get('password').invalid && registerForm.get('password').touched" class="badge-pill alert-danger mt-1" role="alert">
+          <div *ngIf="registerForm.get('password').invalid && registerForm.get('password').touched"
+               class="badge-pill alert-danger mt-1" role="alert">
             Password should be min. 8 characters long!!!
           </div>
         </div>
         <div class="" *ngIf="!editState">
           <label for="copassword" class="col-form-label">Confirm Password</label>
-          <input type="password" class="form-control" id="copassword" placeholder="Confirm Password" formControlName="cpassword">
+          <input type="password" class="form-control" id="copassword" placeholder="Confirm Password"
+                 formControlName="cpassword">
           <!--<span>* Name is required</span>-->
-          <div *ngIf="(registerForm.get('password').value!==registerForm.get('cpassword').value) && registerForm.get('password').touched" class="badge-pill alert-danger mt-1" role="alert">
+          <div
+            *ngIf="(registerForm.get('password').value!==registerForm.get('cpassword').value) && registerForm.get('password').touched"
+            class="badge-pill alert-danger mt-1" role="alert">
             Password does'nt match!!!
           </div>
         </div>
       </div>
 
     </div>
-    <div class="row shift-center">
-      <button *ngIf="!editState" type="button" class="btn btn-outline-light w-25 btn-block mt-4" (click)="addUser()">Register</button>
-      <button *ngIf="editState" type="button" class="btn btn-outline-light mt-4" (click)="editUser()">Confirm Edit</button>
+    <div class="row shift-center mb-2">
+      <button *ngIf="!editState" type="button" class="btn btn-outline-light w-25 btn-block mt-4" (click)="addUser()">
+        Register
+      </button>
+      <button *ngIf="editState" type="button" class="btn btn-outline-light mt-4" (click)="editUser()">Confirm Edit
+      </button>
     </div>
   </form>
 </div>

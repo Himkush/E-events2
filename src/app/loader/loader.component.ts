@@ -12,7 +12,7 @@ export class LoaderComponent implements OnInit {
   constructor(private modalService: BsModalService, private loaderService: LoaderService) { }
 
   @ViewChild('loaderModal', { static: false }) loaderModal: ModalDirective;
-  showLoader = false;
+  showLoader = true;
   ngOnInit() {
     if (this.showLoader) {
       this.loaderModal.show();

@@ -18,6 +18,7 @@ export class ManageEventsComponent implements OnInit {
   loaded = false;
   date = Date.now();
   events: FormsModel[];
+  approveFilterValue = '';
   constructor(private authService: AuthService,
               private eventService: EventFormService,
               private eventBusService: EventBusService,

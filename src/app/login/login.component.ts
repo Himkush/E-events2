@@ -10,6 +10,7 @@ import {AuthService} from '../shared/service/auth.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   resetForm: FormGroup;
+  loading = false;
   @Input() isAdmin?: boolean;
   formSubmitted = false;
   constructor(private auth: AuthService) { }
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
   }
   login() {
     if (this.loginForm.valid) {
+      this.loading = true;
       this.auth.login(this.loginForm.value.email, this.loginForm.value.password, this.isAdmin);
     } else {
       this.formSubmitted = true;

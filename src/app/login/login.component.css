@@ -1,6 +1,11 @@
 .container{
   margin-top: 150px;
 }
+@media screen and (max-width: 780px) {
+  .container {
+    margin-top: 80px;
+  }
+}
 /* .designer-background{ */
   /* background: url("../../assets/img/background.jpg") no-repeat center center fixed;
   background-image: 100%; */
@@ -10,10 +15,17 @@
 }
 .image-holder {
   display: flex;
-  flex-direction: column;
+  border-right: 1px solid #ffffff;
+  flex-direction: row;
   align-items: center;
   justify-items: center;
   justify-content: center;
+}
+@media screen and (max-width: 780px) {
+  .image-holder {
+    border-right: none;
+    margin-bottom: 10px;
+  }
 }
 input {
   border-radius: 20px;

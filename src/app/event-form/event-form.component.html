@@ -89,8 +89,7 @@
             <span
                 *ngIf="!eventForm.get('eventCaption').valid && eventForm.get('eventCaption').touched"
                 class="help-block"
-            >*
-              Caption is required</span>
+            >*Caption is required</span>
           </div>
         </div>
         <div class="row">
@@ -101,11 +100,11 @@
                    placeholder="Event Date"
                    class="form-control"
                    id="date"
+                   autocomplete="off"
                    [minDate]="minDate"
                    formControlName="eventDate"
                    bsDatepicker>
-            <span >*
-              Date is required</span>
+            <span *ngIf="!eventForm.get('eventDate').valid" class="help-block">* Date is required</span>
 
           </div>
           <div class="col-md-5">
@@ -134,7 +133,9 @@
           <div class="col-md-5">
             <label for="fees" class="col-form-label">Registration fees</label>
             <input type="number" name="fees" placeholder="Registration Fees" class="form-control" id="fees">
-            <span>Registration fees is required</span>
+            <span
+              *ngIf="!eventForm.get('registrationFees').valid && eventForm.get('registrationFees').touched" class="help-block"
+            >* Registration fees is required(Enter 0 for NO FEES)</span>
           </div>
         </div>
 
@@ -165,6 +166,7 @@
                        name="date"
                        placeholder="Registration Date Deadline"
                        class="form-control "
+                       autocomplete="off"
                        [minDate]="minDate"
                        formControlName="registrationDeadline"
                        bsDatepicker

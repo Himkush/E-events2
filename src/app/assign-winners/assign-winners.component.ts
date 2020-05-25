@@ -34,6 +34,7 @@ export class AssignWinnersComponent implements OnInit {
   ngOnInit() {
     this.participationListService.fetchParticipantList(this.participationId).subscribe(res => {
       this.participants.push(res);
+      // console.log(this.participants);
       this.loaded = true;
     }, (err) => {
       console.log(err);

@@ -51,7 +51,8 @@ export class AuthService {
         });
         this.insertUSerData(userCredential)
           .then(() => {
-            alert('Registration Successful!!!');
+            this.logout();
+            // alert('Registration Successful!!!');
             this.router.navigate(['/login']);
           });
       })
@@ -62,7 +63,7 @@ export class AuthService {
   }
   insertUSerData(userCredential: firebase.auth.UserCredential) {
     if (this.newUser.imageSrc === undefined) {
-      this.newUser.imageSrc = '../../assets/img/avatar2.png';
+      this.newUser.imageSrc = '../../assets/img/avatar2.jpg';
     }
     const today = new Date();
     const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
@@ -82,7 +83,7 @@ export class AuthService {
         if (isAdmin) {
           this.getCurrentUserDetails().subscribe(user => {
             if (user.role === 'admin') {
-              alert('You have sucessfully logged in!');
+              // alert('You have sucessfully logged in!');
               this.router.navigate(['/admin/events']);
               this.user = user;
             } else {
@@ -93,7 +94,7 @@ export class AuthService {
         } else {
           this.getCurrentUserDetails().pipe(first()).subscribe(user => {
             if (!user.disabled) {
-              alert('You have sucessfully logged in!');
+              // alert('You have sucessfully logged in!');
               console.log('hi');
               this.router.navigate(['/']);
             } else {
@@ -128,7 +129,8 @@ export class AuthService {
       .catch((err) => alert(err));
   }
   updatePostedEvents(idToAdd: string) {
-    this.currentUser.update({postedEvents: firebase.firestore.FieldValue.arrayUnion(idToAdd)});
+    this.productsRef.doc(this.afAuth.auth.currentUser.uid)
+      .update({postedEvents: firebase.firestore.FieldValue.arrayUnion(idToAdd)});
   }
   logout() {
     this.user = null;

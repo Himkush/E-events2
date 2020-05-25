@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark navbar-expand-sm  fixed-top">
+<nav class="navbar navbar-dark navbar-expand-md  fixed-top">
 
 
   <div class="container my-container">
@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse " id="Navbar" [ngClass]="{ 'show': navbarOpen }">
       <ul class="navbar-nav ml-auto ">
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/event-form"><span class="fa fa-home fa-lg"> </span> ADD EVENT </a></li>
+          <a class="nav-link" routerLink="/event-form"><span class="fa fa-plus fa-lg"> </span> ADD EVENT </a></li>
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/"><span class="fa fa-home fa-lg"> </span> EVENTS </a></li>
         <li class="nav-item" routerLinkActive="active"><a class="nav-link"
@@ -30,8 +30,8 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="userDropdown">
             <a class="dropdown-item" href="#" routerLink="/manage-events">Manage Your Events</a>
-            <a class="dropdown-item" href="#" routerLink="/register">Edit Profile</a>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout<span class="fa fa-address-card fa-lg"> </span>
+            <a class="dropdown-item" href="#" routerLink="/register">Edit Profile <span class="fa fa-user-circle"> </span></a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout <span class="fa fa-arrow-circle-right fa-lg"> </span>
             </a>
           </div>
         </li>
@@ -51,7 +51,7 @@
         </button>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer justify-content-center">
         <button class="btn btn-danger" data-dismiss="modal" (click)="logout()">Yes</button>
         <button class="btn btn-dark" data-dismiss="modal">No</button>
       </div>

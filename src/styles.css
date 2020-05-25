@@ -1,26 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 @import url(https://fonts.googleapis.com/css?family=Sigmar+One);
+
 html {
   box-sizing: border-box;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  /*background-image: radial-gradient(circle, #ff9c9b, #ffcecf, #ffe7ff);*/
+}
 
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
 body {
   padding-top: 60px;
 }
-.nav-tabs{
+
+.nav-tabs {
   margin-bottom: 15px !important;
 }
+
 .nav-tabs .nav-link.active {
   font-weight: bold;
   font-size: 1.3rem;
 }
-.nav-tabs .nav-link  {
+
+.nav-tabs .nav-link {
   font-weight: bold;
   font-size: 1.3rem;
   /* color: #485472; */
@@ -32,8 +44,9 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(128,128,128,0.5);
+  background-color: rgba(128, 128, 128, 0.5);
 }
+
 #bg {
   position: fixed;
   z-index: -2;
@@ -42,6 +55,7 @@ body {
   width: 200%;
   height: 200%;
 }
+
 #bg img {
   position: absolute;
   top: 0;
@@ -59,9 +73,23 @@ body {
   align-items: center;
   justify-content: center;
 }
-input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
-  border: 2px solid red;
+
+input {
+  font-size: 20px;
 }
+
+form.ng-invalid.ng-touched input.ng-invalid,
+form.ng-invalid.ng-touched select.ng-invalid,
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border: 2px solid red;
+  background-color: #ffe2e7;
+}
+
+/*input.ng-valid.ng-touched,*/
+/*select.ng-valid.ng-touched {*/
+/*border: 2px solid #19b953;*/
+/*}*/
 
 .loader {
   color: #485472;

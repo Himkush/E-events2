@@ -18,6 +18,7 @@ export class WinnersComponent implements OnInit {
   getWinnersClicked = false;
   id = '';
   loaded = false;
+  searchInput = '';
 
   constructor(private winnersService: WinnersService,
               private eventService: EventFormService,
@@ -50,5 +51,4 @@ export class WinnersComponent implements OnInit {
       }, 500);
     }
   }
-
 }

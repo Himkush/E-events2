@@ -1,16 +1,21 @@
 <div id="bg">
   <img src="../../assets/img/background.jpg">
 </div>
+
 <div class="container text-white">
 
   <div class="row">
-    <div class="col-md-5 image-holder border-right">
+    <div class="col-md-5 image-holder">
       <!--<div class="image-container">-->
       <!--</div>-->
       <!--<h3 class="username">Name</h3>-->
-      <h1>E-EVENTS</h1>
+      <span><img src="../../assets/img/Logo.png" alt=""></span>
+      <span class="h1">EVENTS</span>
     </div>
-    <div class="col-md-7 form-right">
+    <div *ngIf="loading" class="my-class">
+      <div class="loader">Loading...</div>
+    </div>
+    <div *ngIf="!loading" class="col-md-7 form-right">
       <div class="row shift-center">
         <h2 class="">LOGIN</h2>
       </div>
@@ -18,22 +23,28 @@
         <div class="col-md">
           <label for="email" class="col-form-label">Email Id</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Email" formControlName="email">
-          <div *ngIf="loginForm.get('email').invalid && formSubmitted" class="badge-pill alert-danger mt-1" role="alert">
+          <div *ngIf="loginForm.get('email').invalid && formSubmitted" class="badge-pill alert-danger mt-1"
+               role="alert">
             Email is incorrect!!
           </div>
         </div>
         <div class="col-md">
           <label for="password" class="col-form-label">Password</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Password" formControlName="password">
-          <div *ngIf="loginForm.get('password').invalid && formSubmitted" class="badge-pill alert-danger mt-1" role="alert">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                 formControlName="password">
+          <div *ngIf="loginForm.get('password').invalid && formSubmitted" class="badge-pill alert-danger mt-1"
+               role="alert">
             Password is incorrect!!
           </div>
         </div>
         <div class="shift-center mt-3">
           <button type="submit" class="btn btn-outline-light mb-1">Login</button>
-          <p *ngIf="!isAdmin">Register as a <a class="text-white-50" routerLink="/register">CANDIDATE/ COORDINATOR</a></p>
-          <button *ngIf="!isAdmin" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#resetpassword">Forgot Password?</button>
-          </div>
+          <p class="mt-1" *ngIf="!isAdmin">Register as a <a class="text-white-50" routerLink="/register">CANDIDATE/ COORDINATOR</a>
+          </p>
+          <button *ngIf="!isAdmin" type="button" class="btn btn-outline-danger mb-3" data-toggle="modal"
+                  data-target="#resetpassword">Forgot Password?
+          </button>
+        </div>
       </form>
     </div>
   </div>
@@ -43,7 +54,7 @@
 
 </div>
 
-<div class="modal fade" id="resetpassword" >
+<div class="modal fade" id="resetpassword">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
 

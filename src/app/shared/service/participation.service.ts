@@ -33,19 +33,24 @@ export class ParticipationListService {
     const item = this.db.doc<ParticipantsList>(`participantsList/${id}`);
     const subject = new Subject<any>();
     item.valueChanges().pipe(take(1)).subscribe(data => {
-      const temp = data.participants.map((i, index) => {
-        this.participantService.fetchParticipant(i).pipe(take(1)).subscribe(res => {
-         this.userService.fetchUserDocument(res.userId).pipe(take(1)).subscribe(result => {
-                 subject.next({name: result.firstName + ' ' + result.lastName,
-                  email: result.email,
-                  payment: res.payment,
-                  attended: res.attended,
-                  id: i,
-                  index: index + 1
+      if (!data.participants || data.participants === null || data.participants === undefined || data.participants.length === 0) {
+        subject.next(null);
+      } else {
+        const temp = data.participants.map((i, index) => {
+          this.participantService.fetchParticipant(i).pipe(take(1)).subscribe(res => {
+            this.userService.fetchUserDocument(res.userId).pipe(take(1)).subscribe(result => {
+              subject.next({
+                name: result.firstName + ' ' + result.lastName,
+                email: result.email,
+                payment: res.payment,
+                attended: res.attended,
+                id: i,
+                index: index + 1
+              });
+            });
+          });
         });
-        });
-        });
-      });
+      }
     });
     return subject.asObservable();
   }
