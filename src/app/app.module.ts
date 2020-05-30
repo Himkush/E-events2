@@ -1,3 +1,4 @@
+import { AdminGuard } from './shared/guards/admin.guard';
 import { EventBusService } from './shared/service/event-bus.service';
 import { EventFormService } from './shared/service/event-form.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -45,6 +46,11 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { WinnersComponent } from './winners/winners.component';
 import { ApproveEventsComponent } from './admin/approve-events/approve-events.component';
 import {FilterPipe} from './shared/pipes/filter.pipe';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+
+
 // import {AuthGuard} from './shared/guards/auth.guard';
 
 @NgModule({
@@ -88,12 +94,15 @@ import {FilterPipe} from './shared/pipes/filter.pipe';
     TimepickerModule.forRoot(),
     TabsModule.forRoot(),
     ModalModule.forRoot(),
+    MatFormFieldModule,
+    MatSortModule,
     MatTableModule,
     MatButtonModule,
+    MatInputModule
   ],
   providers: [EventFormService, AngularFirestore, AuthService,
               ParticipantService, ParticipationListService, EventBusService,
-              AuthService, RegisterService, AuthGuard],
+              AuthService, RegisterService, AuthGuard, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

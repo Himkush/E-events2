@@ -5,11 +5,15 @@
     <div>
       <tabset>
         <tab heading="For Approval" id="tab1">
-          <div *ngIf="loaded">
+          <div *ngIf="loaded && napEvents">
             <div *ngFor="let x of napEvents">
               <app-event-card [event]="x" [page]="'approvedEvents'" [admin]="adminPage"></app-event-card>
             </div>
           </div>
+          <div *ngIf="loaded && napEvents">
+            <h4>No new event for approval.</h4>
+          </div>
+
           <div *ngIf="!loaded" class="my-class">
             <div class="loader">Loading...</div>
           </div>

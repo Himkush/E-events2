@@ -2,7 +2,7 @@ import { EventBusService } from './event-bus.service';
 import { Injectable, OnInit } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection} from '@angular/fire/firestore';
-import {Router} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {UserModel} from '../model/user.model';
 import {BehaviorSubject} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage';
@@ -26,14 +26,18 @@ export class AuthService {
               private db: AngularFirestore,
               private afs: AngularFirestore,
               private eventBus: EventBusService,
+              private r: ActivatedRoute,
               private router: Router) {
                 this.productsRef = this.db.collection<any>('Users');
                 this.afAuth.auth.onAuthStateChanged(user => {
                   if (user) {
-                    this.getCurrentUserDetails().subscribe(tempUser => {
-                      this.user = {uid: this.getCurrentUserUid(), ...tempUser};
-                      console.log('auto_login');
-                      eventBus.announce('Auto_Login');
+                    this.getCurrentUserDetails().pipe(first()).subscribe(tempUser => {
+                      try{
+                        this.user = {uid: this.getCurrentUserUid(), ...tempUser};
+                        console.log('auto_login');
+                        eventBus.announce('Auto_Login');
+                      } catch{
+                      }
                     });
                   } else {
                     this.user = null;
@@ -74,6 +78,7 @@ export class AuthService {
       participation: [],
       postedEvents: [],
       disabled: false,
+      activate: false,
       ...this.newUser, eventForm: []
     });
   }
@@ -83,11 +88,12 @@ export class AuthService {
         if (isAdmin) {
           this.getCurrentUserDetails().subscribe(user => {
             if (user.role === 'admin') {
-              // alert('You have sucessfully logged in!');
-              this.router.navigate(['/admin/events']);
+              alert('You have sucessfully logged in!');
+              this.router.navigate(['./admin'], {relativeTo: this.r});
               this.user = user;
             } else {
               alert('You are not a admin!');
+              this.getCurrentUserDetails();
               this.logout();
             }
           });
@@ -107,6 +113,11 @@ export class AuthService {
       })
       .catch( (error) => {
         alert(error);
+        if(!isAdmin){
+          this.router.navigate(['./login']);
+        } else {
+          this.router.navigate(['./admin/login']);
+        }
       });
   }
   getUserState() {

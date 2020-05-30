@@ -14,4 +14,5 @@ export interface UserModel {
   participation?: any[];
   postedEvents?: string[];
   disabled?: boolean;
+  activate?: boolean;
 }

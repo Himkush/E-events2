@@ -17,6 +17,7 @@ export interface FormsModel {
   isAdmin?:any;
   approved?: boolean;
   winners?: string[];
+  cancelled?: boolean;
 }
 export interface Coordinator {
   name: string;

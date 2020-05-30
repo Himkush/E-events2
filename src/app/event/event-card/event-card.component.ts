@@ -71,6 +71,9 @@ export class EventCardComponent implements OnInit, OnDestroy {
   approve() {
     this.router.navigate([`./event/${this.event.id}`], { relativeTo: this.r.parent });
   }
+  cancel() {
+    this.router.navigate([`./event/${this.event.id}`], { relativeTo: this.r.parent });
+  }
   isCreator() {
     return this.event.authUID === this.auth.getCurrentUserUid();
   }
