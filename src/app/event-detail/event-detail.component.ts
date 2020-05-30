@@ -1,3 +1,4 @@
+import { AuthService } from './../shared/service/auth.service';
 import { EventBusService } from './../shared/service/event-bus.service';
 import { FormsModel } from './../shared/model/event-form.model';
 import { EventFormService } from './../shared/service/event-form.service';
@@ -13,12 +14,14 @@ export class EventDetailComponent implements OnInit, OnDestroy {
   event: FormsModel;
   id: string;
   loaded = false;
+  isCoordinator = false;
   // access = 'nn';
   access: string;
   date = new Date();
 
   constructor(private eventFormService: EventFormService,
               private eventBusService: EventBusService,
+              private auth: AuthService,
               private router: Router,
               private ref: ApplicationRef,
               private route: ActivatedRoute) {
@@ -32,9 +35,16 @@ export class EventDetailComponent implements OnInit, OnDestroy {
     this.access = data;
     this.eventFormService.getEventDetail(this.id).subscribe(result => {
       this.event = result;
-      console.log(this.event);
       this.loaded = true;
+      if (this.auth.user) {
+        this.isCoordinator = this.auth.user && this.auth.user.role === 'coordinator' && this.isCreator();
+      } else {
+        this.eventBusService.listen('Auto_Login').subscribe(() => {
+          this.isCoordinator = this.auth.user && this.auth.user.role === 'coordinator' && this.isCreator();
+        });
+      }
     });
+
   }
   approveEvent() {
     alert('Are you sure you want to approve this event!');
@@ -42,7 +52,15 @@ export class EventDetailComponent implements OnInit, OnDestroy {
     this.eventFormService.updateEvent(this.event, this.id);
     this.router.navigate(['./approve-events'], {relativeTo: this.route.parent});
   }
-
+  cancelEvent(){
+    alert('****Attention**** You are just one step closer to cancel this event! \n Once Cancelled you will not be able to bring back this event');
+    this.event.cancelled = true;
+    this.eventFormService.updateEvent(this.event, this.id);
+    this.router.navigate(['./events'], { relativeTo: this.route.parent });
+  }
+  isCreator() {
+    return this.event.authUID === this.auth.getCurrentUserUid();
+  }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.

@@ -79,10 +79,12 @@
               <span class="pull-right">{{event.eventCordinator.cordContact}}</span>
 
           </div>
-          <a class="btn btn-outline-primary" [routerLink]="['/participants',event.participation]">Participants List</a>
+          <a class="btn btn-outline-primary" *ngIf="isCoordinator" [routerLink]="['/participants',event.participation]">Participants List</a>
         </div>
         <div *ngIf="access==='admin'">
             <button class="btn btn-danger btn-block btn-large" (click)="approveEvent()" [disabled]="access==='admin' && event.approved">{{event.approved? 'Approved' : 'Approve Event'}}</button>
+            <button class="btn btn-danger btn-block btn-large" (click)="cancelEvent()"
+              [disabled]="access==='admin' && event.cancelled">{{event.cancelled? 'Cancelled' : 'Cancel Event'}}</button>
         </div>
 
         <!--Content-->

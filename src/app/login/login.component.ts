@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   }
   login() {
     if (this.loginForm.valid) {
-      this.loading = true;
       this.auth.login(this.loginForm.value.email, this.loginForm.value.password, this.isAdmin);
     } else {
       this.formSubmitted = true;

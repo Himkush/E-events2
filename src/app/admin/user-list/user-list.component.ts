@@ -1,6 +1,8 @@
 import { UserList } from './../../shared/service/user-list.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective, BsModalRef } from 'ngx-bootstrap';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-user-list',
@@ -10,11 +12,13 @@ import { ModalDirective, BsModalRef } from 'ngx-bootstrap';
 export class UserListComponent implements OnInit {
   modalRef: BsModalRef;
   @ViewChild('smModal', { static: false }) childModal: ModalDirective;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+
   data = [];
-  displayedColumns = ['index', 'name', 'email', 'year', 'role', 'disable'];
+  displayedColumns = ['index', 'name', 'email', 'year', 'role', 'disable', 'activate'];
   coordinatorDisplayColumns = ['index', 'name', 'email', 'signupDate', 'activate'];
-  dataSource = this.data;
-  coordinatorDataSource = [];
+  dataSource: MatTableDataSource<any[]> = new MatTableDataSource([]);
+  coordinatorDataSource: MatTableDataSource<any[]> = new MatTableDataSource([]);
   tableLoading = false;
   constructor(private userListService: UserList) {
   }
@@ -27,14 +31,17 @@ export class UserListComponent implements OnInit {
     this.userListService.fetchUsers().subscribe(d => {
       this.data = d.map(item => ({name: item.firstName + ' ' + item.lastName, loading: false, ...item}));
       this.tableLoading = false;
-      this.dataSource = [...this.data];
-      console.log(this.dataSource);
-      const cData = this.data.filter(el => el.role === 'coordinator');
-      this.coordinatorDataSource = [...cData];
-      console.log(this.coordinatorDataSource)
+      this.data = this.data.filter(el => el.role !== 'admin');
+      this.dataSource = new MatTableDataSource([...this.data]);
+      this.dataSource.sort = this.sort;
+      const cData = this.data.filter(el => el.role === 'coordinator' && !el.activate);
+      this.coordinatorDataSource = new MatTableDataSource([...cData]);
+      this.coordinatorDataSource.sort = this.sort;
     });
-
-    console.log()
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   activateDeactivateAccount(el) {
     if (!el.disabled && confirm('Do you really want to Suspend ' + el.name + ' account!')) {
@@ -44,7 +51,6 @@ export class UserListComponent implements OnInit {
           el.disabled = true;
           el.loading = false;
         }).catch(error => {
-          console.log(error);
           alert('Some Error Occurred');
         });
     } else {
@@ -70,6 +76,7 @@ export class UserListComponent implements OnInit {
         then(data => {
           el.activate = false;
           el.loading = false;
+          this.everyUpdate();
         }).catch(error => {
           console.log(error);
           alert('Some Error Occurred');
@@ -81,6 +88,7 @@ export class UserListComponent implements OnInit {
             .then(data => {
               el.activate = true;
               el.loading = false;
+              this.everyUpdate();
             }).catch(error => {
               console.log(error);
               alert('Some Error Occurred');

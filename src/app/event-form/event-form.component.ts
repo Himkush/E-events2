@@ -3,7 +3,7 @@ import { EventBusService } from './../shared/service/event-bus.service';
 import { EventFormService } from './../shared/service/event-form.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-event-form',
@@ -29,6 +29,7 @@ export class EventFormComponent implements OnInit {
            'Information Technology'];
   constructor(private eventFormService: EventFormService,
               private eventBusService: EventBusService,
+              private r: ActivatedRoute,
               private router: Router) {
     // this.resetForm();
     this.minDate = new Date();
@@ -121,7 +122,7 @@ export class EventFormComponent implements OnInit {
     this.updatedEvent.eventImageUrl = url;
     this.eventFormService.updateEvent(this.updatedEvent, this.editEventForm.id);
     this.eventForm.reset();
-    this.router.navigate(['/']);
+    this.router.navigate(['./'], { relativeTo: this.r.parent });
   }
   updateEvent() {
     this.eventForm.controls.eventImageUrl.setValue(this.imgSrc);
@@ -131,7 +132,7 @@ export class EventFormComponent implements OnInit {
     if (this.imgSrc === this.editEventForm.eventImageUrl) {
       this.eventFormService.updateEvent({...data}, this.editEventForm.id);
       this.eventForm.reset();
-      this.router.navigate(['']);
+      this.router.navigate([''], { relativeTo: this.r.parent });
     } else {
       const url = this.editEventForm.eventImageUrl;
       this.eventFormService.deleteEventImage(url)

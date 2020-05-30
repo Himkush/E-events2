@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark navbar-expand-md  fixed-top">
+<nav class="navbar navbar-dark navbar-expand-md fixed-top" *ngIf="!isAdmin">
 
 
   <div class="container my-container">
@@ -32,6 +32,44 @@
             <a class="dropdown-item" href="#" routerLink="/manage-events">Manage Your Events</a>
             <a class="dropdown-item" href="#" routerLink="/register">Edit Profile <span class="fa fa-user-circle"> </span></a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout <span class="fa fa-arrow-circle-right fa-lg"> </span>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<nav class="navbar navbar-dark navbar-expand-md fixed-top" *ngIf="isAdmin">
+
+
+  <div class="container my-container">
+    <button class="navbar-toggler custom-toggler" type="button" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand float-sm-right" routerLink="./">
+      <img alt="E-Events" width="35" src="../../assets/img/Logo.png">
+      <span class="logo-text"> EVENTS</span>
+    </a>
+    <div class="collapse navbar-collapse " id="Navbar" [ngClass]="{ 'show': navbarOpen }">
+      <ul class="navbar-nav ml-auto ">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/admin"><span class="fa fa-home fa-lg"> </span> Manage EVENT </a></li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/admin/approve-events"><span class="fa fa-check fa-lg"> </span> Approve Events </a></li>
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/admin/manage-users"><span
+              class="fa fa-users fa-lg"> </span> Manage Users </a></li>
+        <li *ngIf="!user" class="nav-item" routerLinkActive="active">
+          <a (click)="toggleNavbar()" class="nav-link" routerLink="/admin/login"><span class="fa fa-address-card fa-lg">
+            </span> LOGIN </a>
+        </li>
+        <li *ngIf="user" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
+            {{userName}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout <span
+                class="fa fa-arrow-circle-right fa-lg"> </span>
             </a>
           </div>
         </li>

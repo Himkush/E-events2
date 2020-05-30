@@ -1,3 +1,4 @@
+import { AdminGuard } from './shared/guards/admin.guard';
 import { ApproveEventsComponent } from './admin/approve-events/approve-events.component';
 import { AdminLoginComponent } from './admin/login/login.component';
 import { EventManageComponent } from './admin/event-manage/event-manage.component';
@@ -33,8 +34,9 @@ const routes: Routes = [
   {path: 'admin',
     children: [
       {
-        path: 'events',
-        component: EventManageComponent
+        path: 'manage-users',
+        component: UserListComponent,
+        canActivate:[AdminGuard]
       },
       {
         path: 'login',
@@ -42,20 +44,24 @@ const routes: Routes = [
       },
       {
         path: 'edit-event',
-        component: EventFormComponent
+        component: EventFormComponent,
+        canActivate: [AdminGuard]
       },
       { path: 'event/:id',
-       component: EventDetailComponent
+        component: EventDetailComponent,
+        canActivate: [AdminGuard]
       },
       {
         path: 'approve-events',
-        component: ApproveEventsComponent
+        component: ApproveEventsComponent,
+        canActivate: [AdminGuard]
       },
       {
         path: '',
         pathMatch: 'full',
-        component: UserListComponent
-      }
+        component: EventManageComponent,
+        canActivate: [AdminGuard]
+      },
   ]}
 ];
 
