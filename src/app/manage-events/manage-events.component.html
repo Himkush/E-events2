@@ -10,7 +10,7 @@
             <h3 class="text-secondary">You have not Participated in any Event!!</h3>
           </div>
           <div class="table-responsive-md" *ngIf="loaded && participatedEvents">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
               <thead class="thead-dark">
               <tr>
                 <th>Name</th>
@@ -54,7 +54,7 @@
           </div>
 
           <div class="table-responsive-md" *ngIf="loaded && postedEvents">
-            <table class="table">
+            <table class="table table-bordered">
               <thead class="thead-dark">
               <tr>
                 <th>Name</th>
@@ -66,8 +66,9 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let x of postedEvents | filter: 'approved': approveFilterValue" [ngClass]="{'table-success': x.approved, 'table-danger': !x.approved}">
-                <td class="text-uppercase">{{x.eventName}}
+              <tr *ngFor="let x of postedEvents | filter: 'approved': approveFilterValue"
+                  [ngClass]="{'table-success': x.approved, 'table-danger': !x.approved}">
+                <td class="text-uppercase font-weight-bolder">{{x.eventName}}
                   <span *ngIf="x.eventDate.toDate() < this.date" class="badge badge-pill badge-info">ended</span>
                 </td>
                 <td>{{x.eventDate.toDate() | date: 'mediumDate'}}</td>
@@ -76,12 +77,15 @@
                   <a class="btn btn-outline-dark w-100" [routerLink]="['../event', x.id]" role="button">Details</a>
                 </td>
                 <td>
-                  <a class="btn btn-outline-dark w-100" [routerLink]="['/assign-winners', x.id, x.participation]"
-                     role="button">Assign Winners</a>
-                     <!--[disabled]="(x.eventDate.toDate() > this.date)"-->
+                  <button class="btn btn-outline-dark w-100"
+                     [routerLink]="['/assign-winners', x.id, x.participation]"
+                     role="button" [disabled]="(x.eventDate.toDate() > this.date)">Assign Winners</button>
+                  <!--[disabled]="(x.eventDate.toDate() > this.date)"-->
                 </td>
                 <td>
-                  <button class="btn btn-outline-dark w-100" role="button" [disabled]="(x.eventDate.toDate() < this.date)" (click)="editEvent(x)">Edit</button>
+                  <button class="btn btn-outline-dark w-100" role="button"
+                          [disabled]="(x.eventDate.toDate() < this.date)" (click)="editEvent(x)">Edit
+                  </button>
                 </td>
               </tr>
               </tbody>

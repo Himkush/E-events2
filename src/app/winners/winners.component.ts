@@ -15,6 +15,7 @@ export class WinnersComponent implements OnInit {
   eventsList = [];
   winnersList: UserModel[];
   eventIds = [];
+  declareDates = [];
   getWinnersClicked = false;
   id = '';
   loaded = false;
@@ -29,6 +30,7 @@ export class WinnersComponent implements OnInit {
     this.winnersService.getAllEventsWinners().subscribe(data => {
       data.forEach(ele => {
         this.eventIds.push(ele.eventId);
+        this.declareDates.push(ele.declareDate);
         this.eventService.getEventDetail(ele.eventId).subscribe(eventData => {
           this.eventsList.push(eventData);
           this.loaded = true;

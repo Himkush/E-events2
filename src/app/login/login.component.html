@@ -2,7 +2,11 @@
   <img src="../../assets/img/background.jpg">
 </div>
 
-<div class="container text-white">
+<div *ngIf="loading" class="my-class">
+  <div class="loader">Loading...</div>
+</div>
+
+<div *ngIf="!loading" class="container text-white">
 
   <div class="row">
     <div class="col-md-5 image-holder">
@@ -12,10 +16,7 @@
       <span><img src="../../assets/img/Logo.png" alt=""></span>
       <span class="h1">EVENTS</span>
     </div>
-    <div *ngIf="loading" class="my-class">
-      <div class="loader">Loading...</div>
-    </div>
-    <div *ngIf="!loading" class="col-md-7 form-right">
+    <div class="col-md-7 form-right">
       <div class="row shift-center">
         <h2 class="">LOGIN</h2>
       </div>

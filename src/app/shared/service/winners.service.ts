@@ -16,7 +16,12 @@ export class WinnersService {
   }
 
   addWinnerDocument(eventId: string, winners: string[]) {
-    const data: WinnersModel = {eventId, winners};
+    // const today = new Date();
+    // const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    // const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+    // const dateTime = date + ' ' + time;
+    const declareDate = new Date();
+    const data: WinnersModel = {eventId, winners, declareDate};
     this.productRef.doc(eventId).set(data)
       .then(() => console.log('winners added'))
       .catch(err => console.log(err));
