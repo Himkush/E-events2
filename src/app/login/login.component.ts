@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../shared/service/auth.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +14,11 @@ export class LoginComponent implements OnInit {
   loading = false;
   @Input() isAdmin?: boolean;
   formSubmitted = false;
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService) {
+  }
 
   ngOnInit() {
+
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, Validators.required)

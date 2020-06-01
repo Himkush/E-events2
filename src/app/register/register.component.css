@@ -1,9 +1,7 @@
-input {
+input, select {
   border-radius: 20px;
 }
-select {
-  border-radius: 20px;
-}
+
 .container{
   margin-top: 80px;
 }
@@ -13,6 +11,14 @@ select {
   align-items: center;
   justify-items: center;
   justify-content: center;
+}
+.custom-border {
+  border-right: 1px dotted #ffffff;
+}
+@media screen and (max-width: 780px) {
+  .custom-border {
+    border-right: none;
+  }
 }
 .image-container {
   display: inline-block;
@@ -24,4 +30,5 @@ select {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 

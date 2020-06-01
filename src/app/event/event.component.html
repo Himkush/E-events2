@@ -1,6 +1,6 @@
 <div class="container">
   <!--<div class="row mt-4">-->
-    <!--<h3>FILTERS</h3>-->
+  <!--<h3>FILTERS</h3>-->
   <!--</div>-->
   <!--<hr>-->
   <div class="row  ml-xs-2 mt-5 ">
@@ -34,69 +34,26 @@
 
     <div *ngIf="!adminPage" class="col-md-4">
       <tabset>
-        <tab heading="Winners">
-          <div class="card">
+
+        <tab heading="Recommended">
+          <div class="card mt-2" *ngFor="let x of upEvents">
             <div class="card-header font-weight-bold">
-              <span>Blind Coding</span>
-              <span class="float-right mr-2"><i class="fa fa-calendar" aria-hidden="true"></i>Nov 16,19</span>
+              <a class="h5" [routerLink]="['/event', x.id]">{{x.eventName}}</a>
+              <span class="float-right mr-2">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                {{x.eventDate.toDate() | date: 'mediumDate'}}
+              </span>
             </div>
             <div class="card-body">
-              <div>
-                <span class="badge badge-pill badge-info mr-3">First</span>
-                <span>Harshit Gupta (1614310088)</span>
-              </div>
-              <div>
-                <span class="badge badge-pill badge-info mr-3">Second</span>
-                <span>Himanshu Kushwaha (1614310090)</span>
-              </div>
-              <div>
-                <span class="badge badge-pill badge-info mr-3">Third</span>
-                <span>Om Prakash (161430131)</span>
-              </div>
+              <span class="card__text">{{x.eventCaption}}</span>
+              <span class="pull-right text-dark">
+                <i class="fa fa-tag" aria-hidden="true"></i>
+                {{x.eventType}}
+              </span>
+              <p class="card__description">{{x.eventDescription}}</p>
             </div>
           </div>
 
-          <div class="card">
-            <div class="card-header font-weight-bold">
-              <span>Treasure Hunt</span>
-              <span class="float-right mr-2"><i class="fa fa-calendar" aria-hidden="true"></i>Nov 16,19</span>
-            </div>
-            <div class="card-body">
-              <div>
-                <span class="badge badge-pill badge-info mr-3">First</span>
-                <span>Harshit Gupta (1614310088)</span>
-              </div>
-              <div>
-                <span class="badge badge-pill badge-info mr-3">Second</span>
-                <span>Himanshu Kushwaha (1614310090)</span>
-              </div>
-              <div>
-                <span class="badge badge-pill badge-info mr-3">Third</span>
-                <span>Om Prakash (161430131)</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header font-weight-bold">
-              <span>Codeamania</span>
-              <span class="float-right mr-2"><i class="fa fa-calendar" aria-hidden="true"></i>Nov 16,19</span>
-            </div>
-            <div class="card-body">
-              <div>
-                <span class="badge badge-pill badge-info mr-3">First</span>
-                <span>Harshit Gupta (1614310088)</span>
-              </div>
-              <div>
-                <span class="badge badge-pill badge-info mr-3">Second</span>
-                <span>Himanshu Kushwaha (1614310090)</span>
-              </div>
-              <div>
-                <span class="badge badge-pill badge-info mr-3">Third</span>
-                <span>Om Prakash (161430131)</span>
-              </div>
-            </div>
-          </div>
         </tab>
       </tabset>
     </div>

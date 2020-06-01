@@ -60,7 +60,7 @@
                 <th>Name</th>
                 <th>Event Date</th>
                 <th>Event Time</th>
-                <th>Details</th>
+                <th>Participants</th>
                 <th>Assign Winners</th>
                 <th>Edit</th>
               </tr>
@@ -68,13 +68,14 @@
               <tbody>
               <tr *ngFor="let x of postedEvents | filter: 'approved': approveFilterValue"
                   [ngClass]="{'table-success': x.approved, 'table-danger': !x.approved}">
-                <td class="text-uppercase font-weight-bolder">{{x.eventName}}
+                <td class="text-uppercase font-weight-bolder">
+                  <a class="w-100" [routerLink]="['../event', x.id]" role="button">{{x.eventName}} <i class="fa fa-link"></i></a>
                   <span *ngIf="x.eventDate.toDate() < this.date" class="badge badge-pill badge-info">ended</span>
                 </td>
                 <td>{{x.eventDate.toDate() | date: 'mediumDate'}}</td>
                 <td>{{x.eventTime.toDate() | date: 'shortTime'}}</td>
                 <td>
-                  <a class="btn btn-outline-dark w-100" [routerLink]="['../event', x.id]" role="button">Details</a>
+                  <a class="btn btn-outline-dark w-100" [routerLink]="['/participants',x.participation]" role="button">Participants</a>
                 </td>
                 <td>
                   <button class="btn btn-outline-dark w-100"

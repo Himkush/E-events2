@@ -17,34 +17,36 @@
   <div *ngIf="loaded" class="accordion" id="winnerAccordion">
 
     <div *ngFor="let e of eventsList | filter: 'eventName': searchInput ;index as i" class="card">
-      <div class="card-header justify-content-center" [id]="'heading'+i">
-        <div class="row">
+      <div class="card-header justify-content-center p-3" [id]="'heading'+i">
+        <div class="row bg-light">
 
-          <div class="mb-0 text-uppercase col-sm-5">
-            <a class="btn btn-link heading" type="button" data-toggle="collapse" [href]="'#collapse'+i"
-               aria-expanded="true"
-               [attr.aria-controls]="'collapse'+i" (click)="getWinnerDetails(e.winners, eventIds[i])">
+          <div class="mb-0 text-uppercase col-sm-8">
+            <a class="btn btn-warning heading" type="button" data-toggle="collapse" [href]="'#collapse'+i"
+               aria-expanded="false"
+               [attr.aria-controls]="'collapse'+i" (click)="getWinnerDetails($event ,e.winners, eventIds[i])">
               {{e.eventName}} <i class="fa fa-caret-down"></i>
             </a>
-            <a class="text-secondary" [routerLink]="['/event', eventIds[i]]">[Details]</a>
-          </div>
-
-          <div class="pull-right mt-1 col-sm-7">
-            <div class="pull-right">
+            <a class="btn btn-link" [routerLink]="['/event', eventIds[i]]">[Event Details]</a>
+            <div class="p-2 d-block d-sm-inline-block bg-light">
+              <span class="h6">Held On: </span>
               <i class="fa fa-calendar text-warning"></i> {{e.eventDate.toDate() | date}}&nbsp;&nbsp;
-              <i class="fa fa-clock-o text-warning"></i> {{e.eventDate.toDate() | date: 'shortTime'}}
+              <i class="fa fa-clock-o text-warning"></i> {{e.eventTime.toDate() | date: 'shortTime'}}
             </div>
           </div>
 
-          <!--<h6 class="bg-warning p-2 ml-2">Declared On: {{declareDates[i]}}</h6>-->
+          <div class="col-sm-4">
+            <span class="badge badge-warning p-1 h6 pull-right">Declared On: {{declareDates[i].toDate() | date: 'mediumDate'}}</span>
+          </div>
+
         </div>
+
       </div>
 
       <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i"
            data-parent="#winnerAccordion">
-        <div class="card-body">
+        <div class="card-body custom-bg">
           <div class="row">
-            <div *ngFor="let winner of winnersList;index as i" class="col-md-4 border p-3 winner-name">
+            <div *ngFor="let winner of winnersList;index as i" class="col-md-4 border p-3 winner-name bg-light">
               <span class="badge badge-pill badge-primary position">{{i+1}}</span> {{winner.firstName + ' ' +
               winner.lastName}}
               <span class="text-primary">( {{winner.email}} )</span>

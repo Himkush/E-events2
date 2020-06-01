@@ -39,7 +39,7 @@ export class WinnersComponent implements OnInit {
     });
   }
 
-  getWinnerDetails(users: string[], id: string) {
+  getWinnerDetails(e, users: string[], id: string) {
     if (this.id !== id) {
       this.id = id;
       this.winnersList = [];

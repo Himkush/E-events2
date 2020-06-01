@@ -1,13 +1,16 @@
 <div class="card">
   <div class="card__img">
     <img class="card__img-preview"
-      src={{event.eventImageUrl}}
-      alt="Image name">
+         src={{event.eventImageUrl}}
+         alt="Image name">
     <div class="card-img-overlay"><span
-        class="badge badge-pill badge-danger">{{event.eventDate.toDate() > date ? 'Upcoming' : 'Past'}}</span> </div>
+      class="badge badge-pill badge-danger">{{event.eventDate.toDate() > date ? 'Upcoming' : 'Past'}}</span></div>
   </div>
   <div class="card__content">
-    <h4 class="card__title"><a [routerLink]="['../event',event.id]" routerLinkActive="router-link-active" >{{event.eventName}}</a></h4>
+    <h4 *ngIf="!admin" class="card__title"><a [routerLink]="['/event' ,event.id ]" routerLinkActive="router-link-active">{{event.eventName}}</a>
+    </h4>
+    <h4 *ngIf="admin" class="card__title"><a [routerLink]="['/admin/event' ,event.id ]" routerLinkActive="router-link-active">{{event.eventName}}</a>
+    </h4>
     <div class="card__bottom">
       <div class="options" style="display: inline-block;">
         <span class="date">
@@ -19,13 +22,23 @@
     </div>
     <h4 class="card__text">{{event.eventCaption}}</h4>
     <p class="card__description">{{event.eventDescription}}</p>
-    <button *ngIf="(isCoordinator || admin ) && (event.eventDate.toDate() > this.date)" type="button" class="custom-btn btn-15  pull-left" (click)="editEvent()">Edit</button>
-    <button *ngIf="!admin && user && !isCreator() && (event.eventDate.toDate() > this.date)" class="custom-btn btn-15 pull-right participated" [disabled]="participated" (click)="participate()">{{participated  ? 'Participated':'Participate'}}</button>
-  
-    <button *ngIf="admin && page==='approvedEvents' && !event.approved" class="custom-btn btn-15 pull-right participated" [disabled]="event.approved" (click)="approve()"> {{event.approved ? 'Approved':'Approve'}}</button>
-    <button *ngIf="admin" class="custom-btn btn-15 mr-2 pull-right participated" [disabled]="event.cancelled" (click)="cancel()"> {{event.cancelled ? 'Cancelled':'Cancel Event'}}</button>
+    <button *ngIf="(isCoordinator || admin ) && (event.eventDate.toDate() > this.date)" type="button"
+            class="custom-btn btn-15  pull-left" (click)="editEvent()">Edit
+    </button>
+    <button *ngIf="!admin && user && !isCreator() && (event.eventDate.toDate() > this.date)"
+            class="custom-btn btn-15 pull-right participated" [disabled]="participated" (click)="participate()">
+      {{participated ? 'Participated':'Participate'}}
+    </button>
+
+    <button *ngIf="admin && page==='approvedEvents' && !event.approved"
+            class="custom-btn btn-15 pull-right participated" [disabled]="event.approved" (click)="approve()">
+      {{event.approved ? 'Approved':'Approve'}}
+    </button>
+    <button *ngIf="admin" class="custom-btn btn-15 mr-2 pull-right participated" [disabled]="event.cancelled"
+            (click)="cancel()"> {{event.cancelled ? 'Cancelled':'Cancel Event'}}
+    </button>
+
     <div *ngIf="event.cancelled" class="disable-background">
-    <div class="disable-background">
       <div class="cancelled-sign">
         <img src="../../../assets/img/cancelled.png">
       </div>

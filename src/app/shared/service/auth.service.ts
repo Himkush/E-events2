@@ -1,8 +1,8 @@
-import { EventBusService } from './event-bus.service';
-import { Injectable, OnInit } from '@angular/core';
+import {EventBusService} from './event-bus.service';
+import {Injectable, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection} from '@angular/fire/firestore';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {UserModel} from '../model/user.model';
 import {BehaviorSubject} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage';
@@ -22,29 +22,31 @@ export class AuthService {
   user: any;
   role: string;
   newUser: UserModel;
+
   constructor(private afAuth: AngularFireAuth,
               private db: AngularFirestore,
               private afs: AngularFirestore,
               private eventBus: EventBusService,
               private r: ActivatedRoute,
               private router: Router) {
-                this.productsRef = this.db.collection<any>('Users');
-                this.afAuth.auth.onAuthStateChanged(user => {
-                  if (user) {
-                    this.getCurrentUserDetails().pipe(first()).subscribe(tempUser => {
-                      try{
-                        this.user = {uid: this.getCurrentUserUid(), ...tempUser};
-                        console.log('auto_login');
-                        eventBus.announce('Auto_Login');
-                      } catch{
-                      }
-                    });
-                  } else {
-                    this.user = null;
-                    eventBus.announce('Logout');
-                  }
-                });
-               }
+    this.productsRef = this.db.collection<any>('Users');
+    this.afAuth.auth.onAuthStateChanged(user => {
+      if (user) {
+        this.getCurrentUserDetails().pipe(first()).subscribe(tempUser => {
+          try {
+            this.user = {uid: this.getCurrentUserUid(), ...tempUser};
+            console.log('auto_login');
+            eventBus.announce('Auto_Login');
+          } catch {
+          }
+        });
+      } else {
+        this.user = null;
+        eventBus.announce('Logout');
+      }
+    });
+  }
+
   createUser(user: UserModel) {
     this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
       .then(userCredential => {
@@ -58,6 +60,7 @@ export class AuthService {
             this.logout();
             // alert('Registration Successful!!!');
             this.router.navigate(['/login']);
+            // alert('Please Login to Continue!!');
           });
       })
       .catch(error => {
@@ -65,6 +68,7 @@ export class AuthService {
         alert(error);
       });
   }
+
   insertUSerData(userCredential: firebase.auth.UserCredential) {
     if (this.newUser.imageSrc === undefined) {
       this.newUser.imageSrc = '../../assets/img/avatar2.jpg';
@@ -73,7 +77,7 @@ export class AuthService {
     const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
     const dateTime = date + ' ' + time;
-    return this.db.doc( `Users/${userCredential.user.uid}`).set({
+    return this.db.doc(`Users/${userCredential.user.uid}`).set({
       signupDate: dateTime,
       participation: [],
       postedEvents: [],
@@ -82,6 +86,7 @@ export class AuthService {
       ...this.newUser, eventForm: []
     });
   }
+
   login(email: string, password: string, isAdmin?: boolean) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(() => {
@@ -93,7 +98,7 @@ export class AuthService {
               this.user = user;
             } else {
               alert('You are not a admin!');
-              this.getCurrentUserDetails();
+              // this.getCurrentUserDetails();
               this.logout();
             }
           });
@@ -104,63 +109,73 @@ export class AuthService {
               console.log('hi');
               this.router.navigate(['/']);
             } else {
-              alert('You are suspended please contact the administrator!');
+              alert('You are SUSPENDED, please contact the administrator!');
               this.router.navigate(['/']);
             }
             this.user = user;
           });
         }
       })
-      .catch( (error) => {
+      .catch((error) => {
         alert(error);
-        if(!isAdmin){
+        if (!isAdmin) {
           this.router.navigate(['./login']);
         } else {
           this.router.navigate(['./admin/login']);
         }
       });
   }
+
   getUserState() {
     return this.afAuth.authState;
   }
+
   getCurrentUserUid() {
     return this.afAuth.auth.currentUser.uid;
   }
+
   getCurrentUserDetails() {
     this.currentUser = this.db.doc<UserModel>(`Users/${this.getCurrentUserUid()}`);
     return this.currentUser.valueChanges();
   }
+
   updateUser(userDetails: any) {
     const uid = this.getCurrentUserUid();
     this.currentUser = this.db.doc<UserModel>(`Users/${uid}`);
     this.currentUser.update(userDetails)
-      .then( () => {alert('Edit Successful');
-                    this.router.navigate(['/']);
-                  })
+      .then(() => {
+        alert('Edit Successful');
+        this.router.navigate(['/']);
+      })
       .catch((err) => alert(err));
   }
+
   updatePostedEvents(idToAdd: string) {
     this.productsRef.doc(this.afAuth.auth.currentUser.uid)
       .update({postedEvents: firebase.firestore.FieldValue.arrayUnion(idToAdd)});
   }
+
   logout() {
     this.user = null;
     return this.afAuth.auth.signOut();
   }
+
   resetPassword(email: string) {
     this.afAuth.auth.sendPasswordResetEmail(email)
-      .then( () => {
+      .then(() => {
         alert('Reset Password Email Sent!!');
       })
-      .catch( error => alert(error));
+      .catch(error => alert(error));
   }
+
   fetchUserDocument(id: string) {
     const item = this.db.doc<UserModel>(`Users/${id}`);
     return item.valueChanges();
   }
+
   addEventForm(data) {
     this.productsRef.doc(this.afAuth.auth.currentUser.uid).update(
-      { participation: firebase.firestore.FieldValue.arrayUnion(data) }
+      {participation: firebase.firestore.FieldValue.arrayUnion(data)}
     );
   }
 }

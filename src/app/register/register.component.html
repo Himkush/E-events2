@@ -11,23 +11,31 @@
 
   <form *ngIf="registerForm" [formGroup]="registerForm" class="pt-4">
 
-    <div class="row shift-center pb-3">
-      <div class="custom-control custom-radio mr-md-4">
-        <input class="custom-control-input" id="candidateradio" type="radio" value="candidate" formControlName="role">
-        <label class="custom-control-label" for="candidateradio">Candidate</label>
-      </div>
-      <div class="custom-control custom-radio">
-        <input class="custom-control-input" id="coordinatorradio" type="radio" value="coordinator"
-               formControlName="role">
-        <label class="custom-control-label" for="coordinatorradio">Coordinator</label>
-      </div>
+    <div class="row shift-center ml-md-1 pb-3">
+      <!--<div class="custom-control custom-radio mr-md-4">-->
+        <!--<input class="custom-control-input" id="candidateradio" type="radio" value="candidate" formControlName="role">-->
+        <!--<label class="custom-control-label" for="candidateradio">Candidate</label>-->
+      <!--</div>-->
+      <!--<div class="custom-control custom-radio">-->
+        <!--<input class="custom-control-input" id="coordinatorradio" type="radio" value="coordinator"-->
+               <!--formControlName="role">-->
+        <!--<label class="custom-control-label" for="coordinatorradio">Coordinator</label>-->
+      <!--</div>-->
+      <label class="btn btn-danger mr-1 font-weight-bolder">
+        <input id="candidateradio" type="radio" value="candidate" formControlName="role">
+        Candidate
+      </label>
+      <label class="btn btn-danger ml-1 font-weight-bolder">
+        <input id="coordinatorradio" type="radio" value="coordinator" formControlName="role">
+        Coordinator
+      </label>
     </div>
     <div *ngIf="registerForm.get('role').invalid && formSubmitted" class="badge-pill alert-danger mb-1" role="alert">
       Please Choose Your Role!!
     </div>
 
     <div class="row">
-      <div class="col-md-6 border-right">
+      <div class="col-md-6 custom-border">
         <div class="image-holder">
           <img class="image-container" [src]="imageUrl" [ngStyle]="{'background-image': '+image+'}">
           <!-- <div class="image-container" [style.background-image]="sani'url(https://firebasestorage.googleapis.com/v0/b/e-events-3964d.appspot.com/o/userImages%2Fdownload%20(8)_1589557908027?alt=media&token=a53d7395-da68-4fbb-a366-8b73fb8ed95b)'"> -->
