@@ -64,7 +64,7 @@ export class EventFormService {
   }
 
   getEvents(page?: string) {
-    if(page === 'main') {
+    if (page === 'main') {
       this.productsRef = this.db.collection<FormsModel>('eventForm', ref => ref.where('approved', '==', true));
     } else {
       this.productsRef = this.db.collection<FormsModel>('eventForm');
@@ -77,6 +77,7 @@ export class EventFormService {
         return { id, ...data };
       }))
     );
+    console.log(this.events);
     return this.events;
   }
   getEventDetail(id?: string) {

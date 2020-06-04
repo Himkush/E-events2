@@ -28,6 +28,7 @@ export class WinnersComponent implements OnInit {
 
   ngOnInit() {
     this.winnersService.getAllEventsWinners().subscribe(data => {
+      data.sort((a, b) => b.declareDate.toDate() - a.declareDate.toDate());
       data.forEach(ele => {
         this.eventIds.push(ele.eventId);
         this.declareDates.push(ele.declareDate);
@@ -40,6 +41,7 @@ export class WinnersComponent implements OnInit {
   }
 
   getWinnerDetails(e, users: string[], id: string) {
+    console.log(e);
     if (this.id !== id) {
       this.id = id;
       this.winnersList = [];

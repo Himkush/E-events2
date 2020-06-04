@@ -16,6 +16,7 @@
                 <th>Name</th>
                 <th>Event Date</th>
                 <th>Event Time</th>
+                <th>Event Coordinator</th>
                 <th>Details</th>
               </tr>
               </thead>
@@ -26,6 +27,7 @@
                 </td>
                 <td>{{x.eventDate.toDate() | date: 'mediumDate'}}</td>
                 <td>{{x.eventTime.toDate() | date: 'shortTime'}}</td>
+                <td>{{x.eventCordinator.cordName}} ({{x.eventCordinator.cordContact}})</td>
                 <td>
                   <a class="btn btn-outline-dark" [routerLink]="['../event', x.id]" role="button">Details</a>
                 </td>
@@ -80,7 +82,7 @@
                 <td>
                   <button class="btn btn-outline-dark w-100"
                      [routerLink]="['/assign-winners', x.id, x.participation]"
-                     role="button" [disabled]="(x.eventDate.toDate() > this.date)">Assign Winners</button>
+                     role="button" [disabled]="(x.eventDate.toDate() > this.date)">{{x.winners.length > 0? 'RE-ASSIGN WINNERS': 'ASSIGN WINNERS'}}</button>
                   <!--[disabled]="(x.eventDate.toDate() > this.date)"-->
                 </td>
                 <td>

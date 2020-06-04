@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: 'add-event', component: EventFormComponent, canActivate: [AuthGuard, RoleGuard]},
   {path: 'manage-events', component: ManageEventsComponent, canActivate: [AuthGuard]},
   {path: 'assign-winners/:eventId/:participationId', component: AssignWinnersComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
+  {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'event-form', component: EventFormComponent, canActivate: [AuthGuard, RoleGuard]},
   {path: 'participants/:id', component: ParticipantsComponent, canActivate: [AuthGuard]},
@@ -36,7 +36,7 @@ const routes: Routes = [
       {
         path: 'manage-users',
         component: UserListComponent,
-        canActivate:[AdminGuard]
+        canActivate: [AdminGuard]
       },
       {
         path: 'login',

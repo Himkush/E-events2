@@ -185,3 +185,9 @@ button{
     left: 20%;
   }
 }
+.winner-tag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /*transform: rotate(40deg);*/
+}

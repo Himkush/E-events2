@@ -38,10 +38,17 @@
             (click)="cancel()"> {{event.cancelled ? 'Cancelled':'Cancel Event'}}
     </button>
 
+    <!--Cancelled Tag-->
     <div *ngIf="event.cancelled" class="disable-background">
       <div class="cancelled-sign">
         <img src="../../../assets/img/cancelled.png">
       </div>
     </div>
+
+    <!--Winners Tag-->
+    <div class="winner-tag badge badge-warning" *ngIf="event.winners.length > 0">
+      Winners declared
+    </div>
+
   </div>
 </div>
