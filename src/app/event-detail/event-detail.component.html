@@ -53,8 +53,8 @@
           </div>
 
           <p class="lead">
-            <span class="mr-1" *ngIf="event.registrationFees>0"> Registration Fees: &#8377;<span>{{event.registrationFees}}</span></span>
-            <span class="mr-1 badge badge-info" *ngIf="event.registrationFees">{{event.registrationFees}}</span>
+            <span class="mr-1" *ngIf="event.registrationFees>0"> </span>
+            <span class="mr-1 badge badge-info" *ngIf="event.registrationFees">Registration Fees: &#8377;{{event.registrationFees}}</span>
           </p>
 
           <p class="lead font-weight-bold mb-0">Description</p>
@@ -81,7 +81,7 @@
           </div>
           <a class="btn btn-outline-primary" *ngIf="isCoordinator" [routerLink]="['/participants',event.participation]">Participants List</a>
         </div>
-        <div *ngIf="access==='admin'">
+        <div *ngIf="access && access==='admin'">
             <button class="btn btn-danger btn-block btn-large" (click)="approveEvent()" [disabled]="access==='admin' && event.approved">{{event.approved? 'Approved' : 'Approve Event'}}</button>
             <button class="btn btn-danger btn-block btn-large" (click)="cancelEvent()"
               [disabled]="access==='admin' && event.cancelled">{{event.cancelled? 'Cancelled' : 'Cancel Event'}}</button>
