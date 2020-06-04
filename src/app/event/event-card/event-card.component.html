@@ -25,7 +25,7 @@
     <button *ngIf="(isCoordinator || admin ) && (event.eventDate.toDate() > this.date)" type="button"
             class="custom-btn btn-15  pull-left" (click)="editEvent()">Edit
     </button>
-    <button *ngIf="!admin && user && !isCreator() && (event.eventDate.toDate() > this.date)"
+    <button *ngIf="!admin && !isCoordinator && (event.eventDate.toDate() > this.date)"
             class="custom-btn btn-15 pull-right participated" [disabled]="participated" (click)="participate()">
       {{participated ? 'Participated':'Participate'}}
     </button>

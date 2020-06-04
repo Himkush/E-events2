@@ -32,11 +32,10 @@ export class AuthService {
     this.productsRef = this.db.collection<any>('Users');
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        this.getCurrentUserDetails().pipe(first()).subscribe(tempUser => {
+        this.getCurrentUserDetails().pipe().subscribe(tempUser => {
           try {
             this.user = {uid: this.getCurrentUserUid(), ...tempUser};
-            console.log('auto_login');
-            eventBus.announce('Auto_Login');
+            this.eventBus.announce('Auto_Login');
           } catch {
           }
         });

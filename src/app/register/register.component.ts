@@ -71,7 +71,9 @@ export class RegisterComponent implements OnInit {
       imageSrc: new FormControl(this.user.imageSrc),
       cpassword: new FormControl(null)
     });
-    this.imageUrl = this.user.imageSrc;
+    if(this.user.imageSrc) {
+      this.imageUrl = this.user.imageSrc;
+    }
   }
 
   some = (url) => {
@@ -123,9 +125,13 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       if (this.selectedImage) {
         const filePath = `userImages/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-        this.registerService.deleteUserImage(this.user.imageSrc).then(res => {
+        if (this.user.imageSrc){
+          this.registerService.deleteUserImage(this.user.imageSrc).then(res => {
+            this.registerService.uploadUserImage(filePath, this.selectedImage, this.some.bind(this));
+          }).catch(err => alert(err));
+        } else{
           this.registerService.uploadUserImage(filePath, this.selectedImage, this.some.bind(this));
-        }).catch(err => alert(err));
+        }
       } else {
         this.auth.updateUser(this.registerForm.value);
       }
