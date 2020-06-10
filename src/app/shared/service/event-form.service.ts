@@ -64,7 +64,7 @@ export class EventFormService {
   }
 
   getEvents(page?: string) {
-    if(page === 'main') {
+    if (page === 'main') {
       this.productsRef = this.db.collection<FormsModel>('eventForm', ref => ref.where('approved', '==', true));
     } else {
       this.productsRef = this.db.collection<FormsModel>('eventForm');
@@ -77,10 +77,17 @@ export class EventFormService {
         return { id, ...data };
       }))
     );
+    console.log(this.events);
     return this.events;
   }
   getEventDetail(id?: string) {
     this.itemDoc = this.db.doc<FormsModel>(`eventForm/${id}`);
     return this.itemDoc.valueChanges();
+  }
+
+  raiseCancelRequest(id: string) {
+    this.db.doc<FormsModel>(`eventForm/${id}`).update({cancelRequest: true}).then(() => {
+      alert('Cancellation Request Raised\n Admin will Review this Request');
+    });
   }
 }

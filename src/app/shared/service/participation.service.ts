@@ -33,7 +33,7 @@ export class ParticipationListService {
     const item = this.db.doc<ParticipantsList>(`participantsList/${id}`);
     const subject = new Subject<any>();
     item.valueChanges().pipe(take(1)).subscribe(data => {
-      if (!data.participants || data.participants === null || data.participants === undefined || data.participants.length === 0) {
+      if (!data || !data.participants || data.participants.length === 0) {
         subject.next(null);
       } else {
         const temp = data.participants.map((i, index) => {

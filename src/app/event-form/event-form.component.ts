@@ -1,9 +1,9 @@
-import { FormsModel } from './../shared/model/event-form.model';
-import { EventBusService } from './../shared/service/event-bus.service';
-import { EventFormService } from './../shared/service/event-form.service';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import {FormsModel} from './../shared/model/event-form.model';
+import {EventBusService} from './../shared/service/event-bus.service';
+import {EventFormService} from './../shared/service/event-form.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-event-form',
@@ -22,11 +22,12 @@ export class EventFormComponent implements OnInit {
   editMode = false;
   minDate: Date;
   dept = ['Computer Science Engineering',
-           'Mechanical Engineering',
-           'Electronics & Communication Engineering',
-           'Electrical & Electronics Engineering',
-           'Civil Engineering',
-           'Information Technology'];
+    'Mechanical Engineering',
+    'Electronics & Communication Engineering',
+    'Electrical & Electronics Engineering',
+    'Civil Engineering',
+    'Information Technology'];
+
   constructor(private eventFormService: EventFormService,
               private eventBusService: EventBusService,
               private r: ActivatedRoute,
@@ -34,6 +35,7 @@ export class EventFormComponent implements OnInit {
     // this.resetForm();
     this.minDate = new Date();
   }
+
   initForm() {
     this.imgSrc = '../../assets/img/image_placeholder.jpg';
     this.selectedImage = null;
@@ -63,9 +65,11 @@ export class EventFormComponent implements OnInit {
       registrationDeadline = this.editEventForm.registrationDeadline.toDate();
       registrationFees = this.editEventForm.registrationFees;
       venue = this.editEventForm.venue;
-      eventCordinatorName =  this.editEventForm.eventCordinator.cordName;
+      eventCordinatorName = this.editEventForm.eventCordinator.cordName;
       eventCordinatorContact = this.editEventForm.eventCordinator.cordContact;
-      this.imgSrc = this.editEventForm.eventImageUrl;
+      if (this.editEventForm.eventImageUrl) {
+        this.imgSrc = this.editEventForm.eventImageUrl;
+      }
     }
     this.eventForm = new FormGroup({
       eventName: new FormControl(eventName, [Validators.required]),
@@ -76,25 +80,26 @@ export class EventFormComponent implements OnInit {
       eventTime: new FormControl(eventTime, Validators.required),
       eventDescription: new FormControl(eventDescription, Validators.required),
       registrationDeadline: new FormControl(registrationDeadline, Validators.required),
-      registrationFees: new FormControl(registrationFees),
+      registrationFees: new FormControl(registrationFees, [Validators.required, Validators.min(0)]),
       venue: new FormControl(venue, Validators.required),
       department: new FormControl(department, Validators.required),
       eventCordinator: new FormGroup({
-      cordName: new FormControl(eventCordinatorName, Validators.required),
-      cordContact: new FormControl(eventCordinatorContact, Validators.required),
-      }
+          cordName: new FormControl(eventCordinatorName, Validators.required),
+          cordContact: new FormControl(eventCordinatorContact, Validators.required),
+        }
       )
     });
   }
 
   ngOnInit(): void {
     this.eventBusService.listen('EVENT_TO_EDIT').subscribe(data => {
-                                                this.editMode = true;
-                                                this.editEventForm = data.data;
-                                                this.initForm();
-                                          });
+      this.editMode = true;
+      this.editEventForm = data.data;
+      this.initForm();
+    });
     this.initForm();
   }
+
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -106,48 +111,62 @@ export class EventFormComponent implements OnInit {
       this.selectedImage = null;
     }
   }
+
   resetForm() {
     this.imgSrc = '../../assets/img/image_placeholder.jpg';
     this.selectedImage = null;
     this.isSubmitted = false;
     this.eventForm.reset();
   }
+
   some = (url) => {
     this.eventForm.controls.eventImageUrl.setValue(url);
     this.eventFormService.addEvent(this.eventForm.value);
     this.resetForm();
     this.router.navigate(['/']);
   }
+
   upload(url) {
     this.updatedEvent.eventImageUrl = url;
     this.eventFormService.updateEvent(this.updatedEvent, this.editEventForm.id);
     this.eventForm.reset();
-    this.router.navigate(['./'], { relativeTo: this.r.parent });
+    this.router.navigate(['./'], {relativeTo: this.r.parent});
   }
+
   updateEvent() {
-    this.eventForm.controls.eventImageUrl.setValue(this.imgSrc);
-    let data = { participation: this.editEventForm.participation,
-                    authUID: this.editEventForm.authUID || null,
-                    ...this.eventForm.value};
+    let data = {
+      participation: this.editEventForm.participation,
+      authUID: this.editEventForm.authUID || null,
+      ...this.eventForm.value
+    };
     if (this.imgSrc === this.editEventForm.eventImageUrl) {
       this.eventFormService.updateEvent({...data}, this.editEventForm.id);
       this.eventForm.reset();
-      this.router.navigate([''], { relativeTo: this.r.parent });
+      this.router.navigate([''], {relativeTo: this.r.parent});
     } else {
       const url = this.editEventForm.eventImageUrl;
-      this.eventFormService.deleteEventImage(url)
-                .then(res => {
-                  if (this.eventForm.valid) {
-                    if (this.selectedImage) {
-                      this.updatedEvent = data;
-                      const filePath = `eventImages/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-                      this.eventFormService.uploadEventImage(filePath, this.selectedImage, this.upload.bind(this));
-                    }
-                  }
-                })
-                .catch();
+      this.updatedEvent = data;
+      const filePath = `eventImages/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      if (this.editEventForm.eventImageUrl) {
+        this.eventFormService.deleteEventImage(url)
+          .then(res => {
+            if (this.eventForm.valid) {
+              if (this.selectedImage) {
+                this.eventFormService.uploadEventImage(filePath, this.selectedImage, this.upload.bind(this));
+              }
+            }
+          })
+          .catch();
+      } else {
+        if (this.eventForm.valid) {
+          if (this.selectedImage) {
+            this.eventFormService.uploadEventImage(filePath, this.selectedImage, this.upload.bind(this));
+          }
+        }
+      }
     }
   }
+
   onSubmit() {
     this.isSubmitted = true;
     if (this.eventForm.valid) {
@@ -159,6 +178,6 @@ export class EventFormComponent implements OnInit {
         this.resetForm();
       }
     }
-}
+  }
 
 }

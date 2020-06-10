@@ -1,6 +1,5 @@
 <nav class="navbar navbar-dark navbar-expand-md fixed-top" *ngIf="!isAdmin">
 
-
   <div class="container my-container">
     <button class="navbar-toggler custom-toggler" type="button" (click)="toggleNavbar()">
       <span class="navbar-toggler-icon"></span>
@@ -24,7 +23,7 @@
           <a (click)="toggleNavbar()" class="nav-link"
              routerLink="/login"><span class="fa fa-address-card fa-lg"> </span> LOGIN </a>
         </li>
-        <li *ngIf="user" class="nav-item dropdown">
+        <li *ngIf="user" class="nav-item dropdown float-right">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
             {{userName}}
           </a>

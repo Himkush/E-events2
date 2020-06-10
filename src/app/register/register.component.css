@@ -24,11 +24,18 @@ input, select {
   display: inline-block;
   width: 200px;
   height: 200px;
-  border: 10px solid gray;
+  border: 5px solid #d3d3d3;
   border-radius: 50%;
   /* background-image: url("../../assets/img/avatar2.png"); */
   background-repeat: no-repeat;
   background-size: cover;
+}
+form.ng-invalid.ng-touched input.ng-invalid,
+form.ng-invalid.ng-touched select.ng-invalid,
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border: 2px solid red;
+  background-color: #ffe2e7;
 }
 
 

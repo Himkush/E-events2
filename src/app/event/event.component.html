@@ -1,9 +1,27 @@
-<div class="container">
-  <!--<div class="row mt-4">-->
-  <!--<h3>FILTERS</h3>-->
+<div class="container mt-5">
+
+  <!--<div class="row bg-light p-2">-->
+    <!--<div class="h6 border-right pr-2 col-md-1 mt-1">Filter By</div>-->
+    <!--<div class="input-group col-md-3">-->
+      <!--<input class="form-control form-control-sm" type="text" placeholder="Search Event Name">-->
+    <!--</div>-->
+    <!--<div class="col-md-2">-->
+      <!--<input type="text"-->
+      <!--name="date"-->
+      <!--placeholder="Event Date"-->
+      <!--class="form-control form-control-sm"-->
+      <!--autocomplete="off"-->
+      <!--bsDatepicker>-->
+    <!--</div>-->
+    <!--<div class="col-md-2">-->
+      <!--<select class="form-control form-control-sm">-->
+        <!--<option>Category</option>-->
+      <!--</select>-->
+    <!--</div>-->
   <!--</div>-->
   <!--<hr>-->
-  <div class="row  ml-xs-2 mt-5 ">
+
+  <div class="row  ml-xs-2 ">
 
     <div class="col-sm-8 col-xs-12 mt-2">
       <div>
@@ -36,7 +54,7 @@
       <tabset>
 
         <tab heading="Recommended">
-          <div class="card mt-2" *ngFor="let x of upEvents">
+          <div class="card mt-2" *ngFor="let x of recEvents">
             <div class="card-header font-weight-bold">
               <a class="h5" [routerLink]="['/event', x.id]">{{x.eventName}}</a>
               <span class="float-right mr-2">

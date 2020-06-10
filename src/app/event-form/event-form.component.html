@@ -132,7 +132,7 @@
           </div>
           <div class="col-md-5">
             <label for="fees" class="col-form-label">Registration fees</label>
-            <input type="number" name="fees" placeholder="Registration Fees" class="form-control" id="fees">
+            <input type="number" name="fees" placeholder="Registration Fees" class="form-control" id="fees"  min="0" formControlName="registrationFees">
             <span
               *ngIf="!eventForm.get('registrationFees').valid && eventForm.get('registrationFees').touched" class="help-block"
             >* Registration fees is required(Enter 0 for NO FEES)</span>

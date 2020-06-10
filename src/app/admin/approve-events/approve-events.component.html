@@ -10,7 +10,7 @@
               <app-event-card [event]="x" [page]="'approvedEvents'" [admin]="adminPage"></app-event-card>
             </div>
           </div>
-          <div *ngIf="loaded && napEvents">
+          <div *ngIf="loaded && napEvents.length === 0">
             <h4>No new event for approval.</h4>
           </div>
 

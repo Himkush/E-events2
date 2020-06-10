@@ -35,7 +35,7 @@ export class EventCardComponent implements OnInit, OnDestroy {
     if (this.auth.user) {
       this.tempFunc();
     } else {
-    this.eventBusService.listen('Auto_Login').subscribe(() =>{
+    this.eventBusService.listen('Auto_Login').subscribe(() => {
       this.tempFunc();
     });
   }
@@ -59,11 +59,14 @@ export class EventCardComponent implements OnInit, OnDestroy {
   }
   participate() {
     if (this.user) {
-      alert('Are you sure you want to participate ?');
-      this.participantService.createNewParticipant(this.user.uid)
-        .then(data => this.participationListService.addNewParticipant(this.event.participation, data.id)
-        .then(() => {this.auth.addEventForm(this.event.id); }
-        ));
+      if (confirm('Are you sure you want to participate ?')) {
+        this.participantService.createNewParticipant(this.user.uid)
+          .then(data => this.participationListService.addNewParticipant(this.event.participation, data.id)
+            .then(() => {
+                this.auth.addEventForm(this.event.id);
+              }
+            ));
+      }
     } else {
       this.router.navigate(['login']);
     }

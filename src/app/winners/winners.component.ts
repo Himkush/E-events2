@@ -4,6 +4,7 @@ import {WinnersService} from '../shared/service/winners.service';
 import {EventFormService} from '../shared/service/event-form.service';
 import {UserModel} from '../shared/model/user.model';
 import {AuthService} from '../shared/service/auth.service';
+import {LoaderService} from '../shared/service/loader.service';
 
 @Component({
   selector: 'app-winners',
@@ -23,19 +24,21 @@ export class WinnersComponent implements OnInit {
 
   constructor(private winnersService: WinnersService,
               private eventService: EventFormService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private loaderService: LoaderService) {
   }
 
   ngOnInit() {
     this.winnersService.getAllEventsWinners().subscribe(data => {
+      data.sort((a, b) => b.declareDate.toDate() - a.declareDate.toDate());
       data.forEach(ele => {
         this.eventIds.push(ele.eventId);
         this.declareDates.push(ele.declareDate);
         this.eventService.getEventDetail(ele.eventId).subscribe(eventData => {
           this.eventsList.push(eventData);
-          this.loaded = true;
         });
       });
+      this.loaded = true;
     });
   }
 

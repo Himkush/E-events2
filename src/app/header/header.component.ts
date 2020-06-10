@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../shared/service/auth.service';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import {LoaderService} from '../shared/service/loader.service';
 
 @Component({
   selector: 'app-header',
@@ -11,21 +12,17 @@ import { filter } from 'rxjs/operators';
 export class HeaderComponent implements OnInit {
   navbarOpen = false;
   user: any;
-  userName: string
+  userName: string;
   isAdmin = false;
   constructor(private auth: AuthService,
-              private router: Router,
-              private r: ActivatedRoute) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      if (event.url.includes('admin')) {
-        this.isAdmin = true;
-      } else {
-        this.isAdmin = false;
-      }});
+      (event.url.includes('admin')) ? this.isAdmin = true : this.isAdmin = false;
+      });
     this.auth.getUserState()
       .subscribe( user => {
         if (user) {
