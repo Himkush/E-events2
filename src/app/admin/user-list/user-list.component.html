@@ -2,9 +2,10 @@
 <tabset >
   <tab heading="Activate/ Deactivate Coordinator Account" id="tab2">
     <div class="example-container mat-elevation-z8 col-10  m-5">
-      <h3>Activate Coordinator Account</h3>
-      <h4>Coordinator will be able to add/update/delete any event.</h4>
-
+      <div style="text-align: center; margin: 10px 0;">
+        <h3 style="font-weight: bold; color:darkslategray">Activate Coordinator Account</h3>
+        <h4>Coordinator will be able to add/update/delete any event if activated.</h4>
+      </div>
       <table mat-table [dataSource]="coordinatorDataSource" matSort>
 
         <!-- Position Column -->
@@ -50,12 +51,14 @@
       </div>
     </div>
   </tab>
-  <tab heading="Activate/Suspend Candidate Account" id="tab1">
+  <tab heading="Suspend/Activate Candidate/Coordinator Account" id="tab1">
     <div class="example-container mat-elevation-z8 col-10  m-5">
-      <h3>Activate/Suspend Candidate or Coordinator Account</h3>
-      <h4>Candidate will not be able to participate in events.</h4>
+      <div style="text-align: center; margin: 10px 0;">
+        <h3 style="font-weight: bold; color:darkslategray">Activate/Suspend Candidate or Coordinator Account</h3>
+        <h4>Candidate will not be able to participate in events.</h4>
+      </div>
       <mat-form-field>
-        <mat-label>Filter</mat-label>
+        <mat-label>Search</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
       </mat-form-field>
       <table mat-table [dataSource]="dataSource" matSort>
