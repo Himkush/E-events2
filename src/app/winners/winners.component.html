@@ -1,9 +1,10 @@
+
 <div class="container mt-5 pt-1">
   <div class="row">
     <div class="col-md-6 h1">Winners<i class="fa fa-trophy text-warning"></i></div>
     <div class="col-md-6 mt-2">
       <!--Filter-->
-      <div class="input-group">
+      <div class="input-group" *ngIf="loaded">
         <div class="input-group-prepend">
           <span class="input-group-text">
             <i class="fa fa-search search-icon"></i>
@@ -11,7 +12,6 @@
         </div>
         <input type="text" class="form-control" placeholder="Search Event Name" [(ngModel)]="searchInput">
       </div>
-
     </div>
   </div>
 
@@ -27,15 +27,19 @@
       <div class="card-header justify-content-center p-3" [id]="'heading'+i">
         <div class="row bg-light">
 
-          <div class="mb-0 text-uppercase col-sm-8">
-            <a class="btn btn-warning heading" type="button" data-toggle="collapse" [href]="'#collapse'+i"
-               aria-expanded="false"
-               [attr.aria-controls]="'collapse'+i" (click)="getWinnerDetails($event ,e.winners, eventIds[i])">
-              {{e.eventName}} <i class="fa fa-caret-down"></i>
-            </a>
-            <a class="btn btn-link" [routerLink]="['/event', eventIds[i]]">[Event Details]</a>
+          <div class="mb-0 col-sm-8">
+            <div class="btn-group" role="group">
+              <a class="btn btn-secondary heading text-uppercase" [routerLink]="['/event', eventIds[i]]">
+                {{e.eventName}}
+              </a>
+              <a class="btn btn-warning heading" type="button" data-toggle="collapse" [href]="'#collapse'+i"
+                 aria-expanded="false"
+                 [attr.aria-controls]="'collapse'+i" (click)="getWinnerDetails($event ,e.winners, eventIds[i])">View
+                Winners <i class="fa fa-caret-down"></i>
+              </a>
+            </div>
             <div class="p-2 d-block d-sm-inline-block bg-light">
-              <span class="h6">Held On: </span>
+              <span class="h6 text-uppercase">Held On: </span>
               <i class="fa fa-calendar text-warning"></i> {{e.eventDate.toDate() | date}}&nbsp;&nbsp;
               <i class="fa fa-clock-o text-warning"></i> {{e.eventTime.toDate() | date: 'shortTime'}}
             </div>
@@ -55,7 +59,8 @@
           <div class="row">
             <div *ngFor="let winner of winnersList;index as i" class="col-md-4 border p-3 winner-name bg-light">
               <span class="badge badge-pill badge-warning position">{{i+1}}</span>
-              <span class="text-uppercase font-weight-bolder"> &nbsp;{{winner.firstName + ' ' + winner.lastName}} </span>
+              <span
+                class="text-uppercase font-weight-bolder"> &nbsp;{{winner.firstName + ' ' + winner.lastName}} </span>
               <span class="badge-pill badge-info"> {{winner.email}}</span>
             </div>
           </div>

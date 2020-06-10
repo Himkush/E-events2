@@ -17,6 +17,7 @@ import {RoleGuard} from './shared/guards/role.guard';
 import {ManageEventsComponent} from './manage-events/manage-events.component';
 import {AssignWinnersComponent} from './assign-winners/assign-winners.component';
 import {WinnersComponent} from './winners/winners.component';
+import {LoginGuard} from './shared/guards/login.guard';
 
 
 const routes: Routes = [
@@ -27,7 +28,7 @@ const routes: Routes = [
   {path: 'add-event', component: EventFormComponent, canActivate: [AuthGuard, RoleGuard]},
   {path: 'manage-events', component: ManageEventsComponent, canActivate: [AuthGuard]},
   {path: 'assign-winners/:eventId/:participationId', component: AssignWinnersComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'event-form', component: EventFormComponent, canActivate: [AuthGuard, RoleGuard]},
   {path: 'participants/:id', component: ParticipantsComponent, canActivate: [AuthGuard]},
@@ -40,7 +41,8 @@ const routes: Routes = [
       },
       {
         path: 'login',
-        component: AdminLoginComponent
+        component: AdminLoginComponent,
+        canActivate: [LoginGuard]
       },
       {
         path: 'edit-event',

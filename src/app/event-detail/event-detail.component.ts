@@ -15,6 +15,7 @@ export class EventDetailComponent implements OnInit, OnDestroy {
   id: string;
   loaded = false;
   isCoordinator = false;
+  imageModal: FormsModel;
   // access = 'nn';
   access: string;
   date = new Date();
@@ -36,11 +37,11 @@ export class EventDetailComponent implements OnInit, OnDestroy {
       this.event = result;
       this.loaded = true;
       if (this.auth.user) {
-        this.access = 'admin';
+        this.access = this.auth.user.role === 'admin' ? 'admin' : null;
         this.isCoordinator = this.auth.user && this.auth.user.role === 'coordinator' && this.isCreator();
       } else {
         this.eventBusService.listen('Auto_Login').subscribe(() => {
-          this.access = 'admin';
+          this.access = this.auth.user && this.auth.user.role === 'admin' ? 'admin' : null;
           this.isCoordinator = this.auth.user && this.auth.user.role === 'coordinator' && this.isCreator();
         });
       }
@@ -49,8 +50,7 @@ export class EventDetailComponent implements OnInit, OnDestroy {
   }
 
   approveEvent() {
-    const approval = confirm('Are you sure you want to approve this event!');
-    if (approval) {
+    if (confirm('Are you sure you want to approve this event!')) {
       this.event.approved = true;
       this.eventFormService.updateEvent(this.event, this.id);
       this.router.navigate(['./approve-events'], {relativeTo: this.route.parent});
@@ -58,8 +58,7 @@ export class EventDetailComponent implements OnInit, OnDestroy {
   }
 
   cancelEvent() {
-    const cancelled = confirm('****Attention**** You are just one step closer to cancel this event! \n Once Cancelled you will not be able to bring back this event');
-    if (cancelled) {
+    if (confirm('****Attention**** You are just one step closer to cancel this event! \n Once Cancelled you will not be able to bring back this event')) {
       this.event.cancelled = true;
       this.eventFormService.updateEvent(this.event, this.id);
       this.router.navigate(['./admin/'], {relativeTo: this.route.parent});
@@ -74,5 +73,8 @@ export class EventDetailComponent implements OnInit, OnDestroy {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     this.eventBusService.data = null;
+  }
+  imageClicked(x) {
+    this.imageModal = x;
   }
 }

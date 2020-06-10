@@ -1,12 +1,8 @@
-<div bsModal #loaderModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-     aria-labelledby="dialog-sizes-name2">
-  <div class="modal-dialog modal-dialog-centered modal-sm ">
-    <div class="modal-content">
-      <div class="modal-body text-center">
-        <div class="my-class">
-          <div class="loader">Loading...</div>
-        </div>
-      </div>
+<!--<button type="button" class="btn btn-primary" (click)="openModal(loaderModal)">Open first modal</button>-->
+<div *ngIf="showLoader=='show'" class="disable-background shadow-lg">
+  <div class="loaderModal">
+    <div class="modal-dialog modal-sm">
+      <div class="loader">Loading...</div>
     </div>
   </div>
 </div>

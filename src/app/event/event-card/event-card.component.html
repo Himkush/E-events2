@@ -2,7 +2,8 @@
   <div class="card__img">
     <img class="card__img-preview"
          src={{event.eventImageUrl}}
-         alt="Image name">
+         alt="Image name"
+    >
     <div class="card-img-overlay"><span
       class="badge badge-pill badge-danger">{{event.eventDate.toDate() > date ? 'Upcoming' : 'Past'}}</span></div>
   </div>
@@ -40,9 +41,9 @@
 
     <!--Cancelled Tag-->
     <div *ngIf="event.cancelled" class="disable-background">
-      <div class="cancelled-sign">
+      <span class="cancelled-sign">
         <img src="../../../assets/img/cancelled.png">
-      </div>
+      </span>
     </div>
 
     <!--Winners Tag-->

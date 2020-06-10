@@ -1,0 +1,19 @@
+.disable-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(185,181,184,0.39);
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+.loaderModal {
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  background-color: white;
+  width: 250px;
+  height: 250px;
+  z-index: 1001;
+  transform: translate(-50%);
+}
