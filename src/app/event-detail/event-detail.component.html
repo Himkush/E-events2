@@ -12,9 +12,10 @@
 
         <img
           [src] = event.eventImageUrl
-          class="img-fluid"
+          class="img-fluid event-image"
           alt=""
-          style="max-height: 450px;"
+          data-toggle="modal" data-target="#imageModal"
+          (click)="imageClicked(event)"
           >
 
       </div>
@@ -81,7 +82,7 @@
           </div>
           <a class="btn btn-outline-primary" *ngIf="isCoordinator" [routerLink]="['/participants',event.participation]">Participants List</a>
         </div>
-        <div *ngIf="access && access==='admin'">
+        <div *ngIf="access==='admin'">
             <button class="btn btn-danger btn-block btn-large" (click)="approveEvent()" [disabled]="access==='admin' && event.approved">{{event.approved? 'Approved' : 'Approve Event'}}</button>
             <button class="btn btn-danger btn-block btn-large" (click)="cancelEvent()"
               [disabled]="access==='admin' && event.cancelled">{{event.cancelled? 'Cancelled' : 'Cancel Event'}}</button>
@@ -99,3 +100,20 @@
 
   </div>
 </main>
+
+<!-- Modal -->
+<div *ngIf="imageModal" class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{imageModal.eventName}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img [src]="imageModal.eventImageUrl" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</div>

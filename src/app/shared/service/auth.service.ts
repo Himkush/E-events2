@@ -8,7 +8,7 @@ import {BehaviorSubject} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {switchMap, first} from 'rxjs/operators';
 import * as firebase from 'firebase';
-
+import {LoaderService} from './loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,8 @@ export class AuthService {
               private afs: AngularFirestore,
               private eventBus: EventBusService,
               private r: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private loaderService: LoaderService) {
     this.productsRef = this.db.collection<any>('Users');
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
@@ -46,11 +47,20 @@ export class AuthService {
     });
   }
 
+  sendVerificationMail() {
+    return this.afAuth.auth.currentUser.sendEmailVerification()
+      .then(() => {
+        // this.router.navigate(['<!-- enter your route name here -->']);
+        // alert('Email verification mail has been sent! \n Please Verify to Continue!');
+        alert('Please validate your email address. Kindly check your inbox.');
+      });
+  }
+
   createUser(user: UserModel) {
+    this.loaderService.show();
     this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
       .then(userCredential => {
         this.newUser = user;
-        console.log('hello');
         userCredential.user.updateProfile({
           displayName: user.firstName + ' ' + user.lastName
         });
@@ -61,10 +71,13 @@ export class AuthService {
             this.router.navigate(['/login']);
             // alert('Please Login to Continue!!');
           });
+        this.sendVerificationMail();
+        this.loaderService.hide();
       })
       .catch(error => {
         console.log(error);
         alert(error);
+        this.loaderService.hide();
       });
   }
 
@@ -82,14 +95,22 @@ export class AuthService {
       postedEvents: [],
       disabled: false,
       activate: false,
-      ...this.newUser, eventForm: []
+      ...this.newUser,
+      password: null,
+      cpassword: null, eventForm: []
     });
   }
 
   login(email: string, password: string, isAdmin?: boolean) {
+    this.loaderService.show();
+    this.logout();
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        if (isAdmin) {
+      .then((res) => {
+        if (res.user.emailVerified !== true) {
+          this.sendVerificationMail();
+          // isAdmin ? this.router.navigate(['/admin/login']) : this.router.navigate(['/login']);
+          throw 'Email Not Verified!';
+        } else if (isAdmin) {
           this.getCurrentUserDetails().subscribe(user => {
             if (user.role === 'admin') {
               alert('You have sucessfully logged in!');
@@ -114,6 +135,7 @@ export class AuthService {
             this.user = user;
           });
         }
+        this.loaderService.hide();
       })
       .catch((error) => {
         alert(error);
@@ -122,6 +144,8 @@ export class AuthService {
         } else {
           this.router.navigate(['./admin/login']);
         }
+        this.logout();
+        this.loaderService.hide();
       });
   }
 

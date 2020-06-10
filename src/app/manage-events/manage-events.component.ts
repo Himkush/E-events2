@@ -22,6 +22,7 @@ export class ManageEventsComponent implements OnInit {
   constructor(private authService: AuthService,
               private eventService: EventFormService,
               private eventBusService: EventBusService,
+              private eventFormService: EventFormService,
               private router: Router) { }
 
   ngOnInit() {
@@ -49,5 +50,11 @@ export class ManageEventsComponent implements OnInit {
     // this.eventBusService.announce('EVENT_TO_EDIT', this.event);
     editEvent.isAdmin ? this.router.navigate(['/admin/edit-event']) : this.router.navigate(['edit-event']);
     setTimeout(er => this.eventBusService.announce('EVENT_TO_EDIT', editEvent));
+  }
+
+  cancelEventRequest(e) {
+    if (confirm('Are you sure to Raise this Cancellation Request?')) {
+      this.eventFormService.raiseCancelRequest(e.id);
+    }
   }
 }

@@ -78,9 +78,7 @@ input {
   font-size: 20px;
 }
 
-form.ng-invalid.ng-touched input.ng-invalid,
-form.ng-invalid.ng-touched select.ng-invalid,
-input.ng-invalid.ng-touched,
+input.ng-invalid.ng-touched,au
 select.ng-invalid.ng-touched {
   border: 2px solid red;
   background-color: #ffe2e7;

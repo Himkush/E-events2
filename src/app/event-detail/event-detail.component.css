@@ -1,0 +1,16 @@
+.modal-dialog { /* Width */
+  max-width: 100%;
+  width: auto !important;
+  display: inline-block;
+}
+.modal {
+  text-align: center;
+}
+.event-image {
+  max-height: 450px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.event-image:hover {
+  transform: scale(1.03);
+}

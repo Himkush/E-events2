@@ -84,4 +84,10 @@ export class EventFormService {
     this.itemDoc = this.db.doc<FormsModel>(`eventForm/${id}`);
     return this.itemDoc.valueChanges();
   }
+
+  raiseCancelRequest(id: string) {
+    this.db.doc<FormsModel>(`eventForm/${id}`).update({cancelRequest: true}).then(() => {
+      alert('Cancellation Request Raised\n Admin will Review this Request');
+    });
+  }
 }

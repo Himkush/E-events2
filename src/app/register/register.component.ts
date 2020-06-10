@@ -83,7 +83,6 @@ export class RegisterComponent implements OnInit {
       // this.registerForm.reset();
     } else {
       this.auth.createUser(this.registerForm.value);
-
     }
   }
 
@@ -101,6 +100,7 @@ export class RegisterComponent implements OnInit {
       }
     } else {
       this.formSubmitted = true;
+      alert('Form Not Valid');
     }
   }
 

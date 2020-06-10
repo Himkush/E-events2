@@ -54,7 +54,7 @@
       <tabset>
 
         <tab heading="Recommended">
-          <div class="card mt-2" *ngFor="let x of upEvents">
+          <div class="card mt-2" *ngFor="let x of recEvents">
             <div class="card-header font-weight-bold">
               <a class="h5" [routerLink]="['/event', x.id]">{{x.eventName}}</a>
               <span class="float-right mr-2">

@@ -36,3 +36,10 @@ input {
   align-items: center;
   justify-content: center;
 }
+form.ng-invalid.ng-touched input.ng-invalid,
+form.ng-invalid.ng-touched select.ng-invalid,
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border: 2px solid red;
+  background-color: #ffe2e7;
+}
