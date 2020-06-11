@@ -36,6 +36,7 @@ export class AuthService {
         this.getCurrentUserDetails().pipe().subscribe(tempUser => {
           try {
             this.user = {uid: this.getCurrentUserUid(), ...tempUser};
+            console.log('hi')
             this.eventBus.announce('Auto_Login');
           } catch {
           }

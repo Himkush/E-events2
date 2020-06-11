@@ -1,3 +1,5 @@
+import { EventBusService } from './shared/service/event-bus.service';
+import { AuthService } from './shared/service/auth.service';
 import {Router, NavigationEnd} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
 import {setTheme} from 'ngx-bootstrap';
@@ -12,8 +14,9 @@ import {LoaderService} from './shared/service/loader.service';
 export class AppComponent implements OnInit {
   title = 'E-events';
   isAdmin = false;
+  user: any;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private auth: AuthService, private eventBusService: EventBusService) {
     setTheme('bs4');
   }
 
@@ -28,5 +31,12 @@ export class AppComponent implements OnInit {
       }
       // console.log(this.isAdmin);
     });
+    if (this.auth.user) {
+      this.user = this.auth.user;
+    } else {
+      this.eventBusService.listen('Auto_Login').subscribe(() => {
+        this.user =  this.auth.user;
+      });
+    }
   }
 }

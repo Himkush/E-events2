@@ -22,7 +22,7 @@ import {LoginGuard} from './shared/guards/login.guard';
 
 const routes: Routes = [
   {path: '', component: EventComponent},
-  {path: 'event/:id', component: EventDetailComponent, canActivate: [AuthGuard]},
+  {path: 'event/:id', component: EventDetailComponent},
   {path: 'edit-event', component: EventFormComponent, canActivate: [AuthGuard, RoleGuard]},
   {path: 'winners', component: WinnersComponent, canActivate: [AuthGuard]},
   {path: 'add-event', component: EventFormComponent, canActivate: [AuthGuard, RoleGuard]},

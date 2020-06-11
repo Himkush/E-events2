@@ -24,8 +24,6 @@ export class EventCardComponent implements OnInit, OnDestroy {
   userData: any[];
   constructor(private eventFormService: EventFormService,
               private eventBusService: EventBusService,
-              private participationListService: ParticipationListService,
-              private participantService: ParticipantService,
               private router: Router,
               private r: ActivatedRoute,
               private auth: AuthService) { }
@@ -58,18 +56,8 @@ export class EventCardComponent implements OnInit, OnDestroy {
     setTimeout(er => this.eventBusService.announce('EVENT_TO_EDIT', this.event));
   }
   participate() {
-    if (this.user) {
-      if (confirm('Are you sure you want to participate ?')) {
-        this.participantService.createNewParticipant(this.user.uid)
-          .then(data => this.participationListService.addNewParticipant(this.event.participation, data.id)
-            .then(() => {
-                this.auth.addEventForm(this.event.id);
-              }
-            ));
-      }
-    } else {
-      this.router.navigate(['login']);
-    }
+    this.router.navigate([`./event/${this.event.id}`]);
+
   }
   approve() {
     this.router.navigate([`./event/${this.event.id}`], { relativeTo: this.r.parent });

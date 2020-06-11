@@ -18,6 +18,10 @@ export class RoleGuard implements CanActivate {
           if (user1.role === 'candidate' || user1.role === 'admin') {
             this.router.navigateByUrl('/');
             alert('You are NOT REGISTERD AS COORDINATOR and CANNOT ADD EVENTS!!');
+          } else if(user1.role === 'coordinator' && !user1.activate){
+            this.router.navigateByUrl('/').then(()=>{
+              alert('You are not activated or suspended as a COORDINATOR and CANNOT ADD EVENTS!!');
+            });
           }
         });
       }
