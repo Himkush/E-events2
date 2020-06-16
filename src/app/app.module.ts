@@ -7,7 +7,7 @@ import {AngularFireModule} from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { TimepickerModule, BsDatepickerModule, TabsModule, ModalModule } from 'ngx-bootstrap';
+import { TimepickerModule, BsDatepickerModule, TabsModule, ModalModule, AlertModule } from 'ngx-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatTableModule } from '@angular/material/table';
@@ -100,7 +100,8 @@ import { AboutComponent } from './about/about.component';
     MatSortModule,
     MatTableModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    AlertModule.forRoot()
   ],
   providers: [EventFormService, AngularFirestore, AuthService,
               ParticipantService, ParticipationListService, EventBusService,
