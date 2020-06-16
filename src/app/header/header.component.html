@@ -18,12 +18,12 @@
         <li class="nav-item" routerLinkActive="active"><a class="nav-link"
                                                           routerLink="/winners"><span class="fa fa-list fa-lg"> </span> WINNERS </a></li>
         <li class="nav-item" routerLinkActive="active"><a class="nav-link"
-                                                          routerLink="/contact"><span class="fa fa-address-card fa-lg"> </span> CONTACT </a></li>
-        <li *ngIf="!user" class="nav-item" routerLinkActive="active">
+                                                          routerLink="/about"><span class="fa fa-address-book fa-lg"> </span> ABOUT </a></li>
+        <li *ngIf="!user || user===null" class="nav-item" routerLinkActive="active">
           <a (click)="toggleNavbar()" class="nav-link"
-             routerLink="/login"><span class="fa fa-address-card fa-lg"> </span> LOGIN </a>
+             routerLink="/login">LOGIN <span class="fa fa-arrow-circle-right fa-lg"> </span></a>
         </li>
-        <li *ngIf="user" class="nav-item dropdown float-right">
+        <li *ngIf="user" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
             {{userName}}
           </a>
@@ -36,6 +36,10 @@
         </li>
       </ul>
     </div>
+    <!--<button *ngIf="user" class="btn btn-outline-dark">-->
+      <!--<i class="fa fa-bell"></i>-->
+      <!--<sup>10</sup>-->
+    <!--</button>-->
   </div>
 </nav>
 <nav class="navbar navbar-dark navbar-expand-md fixed-top" *ngIf="isAdmin">

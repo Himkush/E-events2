@@ -1,7 +1,7 @@
 <div id="bg">
   <img src="../../assets/img/background.jpg">
 </div>
-<div class="container text-white">
+<div class="container text-white mb-2">
   <div class="row shift-center">
     <h2 class="text-uppercase">{{editState ? 'Edit User Info' : 'Register'}}</h2>
   </div>
@@ -91,7 +91,6 @@
             <option value="ME">ME</option>
             <option value="BT">BT</option>
           </select>
-          <!--<span>* Name is required</span>-->
         </div>
         <div class="">
           <label for="year" class="col-form-label">Year</label>
@@ -101,12 +100,10 @@
             <option value="3">3</option>
             <option value="4">4</option>
           </select>
-          <!--<span>* Name is required</span>-->
         </div>
         <div class="" *ngIf="!editState">
           <label for="password" class="col-form-label">Set Password</label>
           <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
-          <!--<span>* Name is required</span>-->
           <div *ngIf="registerForm.get('password').invalid && registerForm.get('password').touched"
                class="badge-pill alert-danger mt-1" role="alert">
             Password should be min. 8 characters long!!!
@@ -116,7 +113,6 @@
           <label for="copassword" class="col-form-label">Confirm Password</label>
           <input type="password" class="form-control" id="copassword" placeholder="Confirm Password"
                  formControlName="cpassword">
-          <!--<span>* Name is required</span>-->
           <div
             *ngIf="(registerForm.get('password').value!==registerForm.get('cpassword').value) && registerForm.get('password').touched"
             class="badge-pill alert-danger mt-1" role="alert">

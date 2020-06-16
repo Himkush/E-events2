@@ -6,7 +6,7 @@
   <div class="loader">Loading...</div>
 </div>
 
-<div *ngIf="!loading" class="container text-white">
+<div *ngIf="!loading" class="container text-white mb-2">
 
   <div class="row">
     <div class="col-md-5 image-holder">
@@ -40,19 +40,19 @@
         </div>
         <div class="shift-center mt-3">
           <button type="submit" class="btn btn-outline-light mb-1">Login</button>
-          <p class="mt-1" *ngIf="!isAdmin">Register as a <a class="text-uppercase text-white-50" routerLink="/register">CANDIDATE/ COORDINATOR</a>
+          <p class="mt-1" *ngIf="!isAdmin">
+            Not Registered?
+            <a class="text-uppercase text-warning" routerLink="/register">
+            Register Here <i class="fa fa-chevron-circle-right"></i>
+            </a>
           </p>
-          <button *ngIf="!isAdmin" type="button" class="btn btn-outline-danger mb-3" data-toggle="modal"
+          <button *ngIf="!isAdmin" type="button" class="btn btn-danger mb-3" data-toggle="modal"
                   data-target="#resetpassword">Forgot Password?
           </button>
         </div>
       </form>
     </div>
   </div>
-  <!--<div class="overlay">-->
-  <!--<div class="loader"></div>-->
-  <!--</div>-->
-
 </div>
 
 <div class="modal fade" id="resetpassword">

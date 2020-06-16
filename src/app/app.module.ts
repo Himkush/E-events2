@@ -49,6 +49,7 @@ import {FilterPipe} from './shared/pipes/filter.pipe';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
+import { AboutComponent } from './about/about.component';
 
 
 // import {AuthGuard} from './shared/guards/auth.guard';
@@ -77,7 +78,8 @@ import { MatInputModule } from '@angular/material';
     AssignWinnersComponent,
     WinnersComponent,
     ApproveEventsComponent,
-    FilterPipe
+    FilterPipe,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

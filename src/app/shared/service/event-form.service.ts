@@ -7,6 +7,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class EventFormService {
   constructor(private db: AngularFirestore,
               private storage: AngularFireStorage,
               private auth: AuthService,
-              private participationListService: ParticipationListService) {
+              private participationListService: ParticipationListService,
+              private router: Router) {
     this.productsRef = this.db.collection<FormsModel>('eventForm');
   }
   addEvent(data: FormsModel) {
@@ -46,8 +48,10 @@ export class EventFormService {
   updateEventWinners(winnerList, id: string) {
     this.itemDoc = this.db.doc<FormsModel>(`eventForm/${id}`);
     this.itemDoc.update({winners: winnerList})
-      .then(() => alert('Winners Uploaded'))
-      .catch(err => console.log(err));
+      .then(() => {
+        alert('Winners Uploaded');
+        this.router.navigate(['/manage-events']);
+      }).catch(err => console.log(err));
   }
   uploadEventImage(filePath: string, image: any, callback) {
     const fileRef = this.storage.ref(filePath);
