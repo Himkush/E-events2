@@ -1,35 +1,53 @@
 <div class="container mt-5">
 
-  <!--<div class="row bg-light p-2">-->
-    <!--<div class="h6 border-right pr-2 col-md-1 mt-1">Filter By</div>-->
-    <!--<div class="input-group col-md-3">-->
-      <!--<input class="form-control form-control-sm" type="text" placeholder="Search Event Name">-->
-    <!--</div>-->
-    <!--<div class="col-md-2">-->
-      <!--<input type="text"-->
-      <!--name="date"-->
-      <!--placeholder="Event Date"-->
-      <!--class="form-control form-control-sm"-->
-      <!--autocomplete="off"-->
-      <!--bsDatepicker>-->
-    <!--</div>-->
-    <!--<div class="col-md-2">-->
-      <!--<select class="form-control form-control-sm">-->
-        <!--<option>Category</option>-->
-      <!--</select>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--<hr>-->
-
+  <button class="btn btn-warning filter-button" data-toggle="modal" data-target="#filterModal">
+    Filters <i class="fa fa-filter"></i>
+  </button>
+  <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title" id="exampleModalLabel">Filter By</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input class="form-control mb-3" placeholder="Event Name" [(ngModel)]="eventNameInput">
+          <div class="input-group" *ngIf="loaded">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-calendar"></i>
+              </span>
+            </div>
+            <input type="text"
+                   placeholder="Event Date"
+                   class="form-control"
+                   autocomplete="off"
+                   bsDatepicker
+                   [(ngModel)]="eventDateInput"
+            >
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="clearFilter()">Clear Filters</button>
+          <button type="button" class="btn btn-dark" data-dismiss="modal">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="row  ml-xs-2 ">
 
-    <div class="col-sm-8 col-xs-12 mt-2">
+    <div class="col-md-8 col-xs-12 mt-2">
       <div>
         <tabset>
           <tab heading="Live / Upcoming" id="tab1">
             <div *ngIf="loaded">
-              <div *ngFor="let x of upEvents">
+              <div *ngIf="upEvents.length === 0">
+                <h3 class="text-secondary text-center">No Live/Upcoming Events</h3>
+              </div>
+              <div *ngFor="let x of upEvents | filter: 'eventName': eventNameInput | filter: 'eventDate': eventDateInput">
                 <app-event-card [event]="x" [admin]="adminPage"></app-event-card>
               </div>
             </div>
@@ -39,7 +57,10 @@
           </tab>
           <tab heading="Past" id="tab2">
             <div *ngIf="loaded" style="min-height: 400px;">
-              <div *ngFor="let x of pEvents">
+              <div *ngIf="pEvents.length === 0">
+                <h3 class="text-secondary text-center">No Past Events</h3>
+              </div>
+              <div *ngFor="let x of pEvents | filter: 'eventName': eventNameInput | filter: 'eventDate': eventDateInput">
                 <app-event-card [event]="x" [admin]="adminPage"></app-event-card>
               </div>
             </div>
@@ -51,7 +72,7 @@
       </div>
     </div>
 
-    <div *ngIf="!adminPage" class="col-md-4">
+    <div *ngIf="!adminPage" class="col-md-4 d-md-block d-none">
       <tabset>
         <tab heading="Recommended">
           <div class="card mt-2" *ngFor="let x of recEvents">

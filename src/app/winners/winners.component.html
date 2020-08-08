@@ -23,7 +23,7 @@
 
   <div *ngIf="loaded" class="accordion" id="winnerAccordion">
 
-    <div *ngFor="let e of eventsList | filter: 'eventName': searchInput ;index as i" class="card">
+    <div *ngFor="let e of eventsList | filter: 'eventName': searchInput;index as i" class="card">
       <div class="card-header justify-content-center p-3" [id]="'heading'+i">
         <div class="row bg-light">
 
@@ -59,9 +59,10 @@
           <div class="row">
             <div *ngFor="let winner of winnersList;index as i" class="col-md-4 border p-3 winner-name bg-light">
               <span class="badge badge-pill badge-warning position">{{i+1}}</span>
-              <span
-                class="text-uppercase font-weight-bolder"> &nbsp;{{winner.firstName + ' ' + winner.lastName}} </span>
-              <span class="badge-pill badge-info"> {{winner.email}}</span>
+              <span class="text-uppercase font-weight-bolder"> &nbsp;
+                {{winner.firstName + ' ' + winner.lastName}}
+              </span>
+              <div class="badge-pill badge-info mt-1">{{winner.email}}</div>
             </div>
           </div>
         </div>

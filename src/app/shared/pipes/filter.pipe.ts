@@ -17,6 +17,11 @@ export class FilterPipe implements PipeTransform {
         e[field].toString() === value
       );
     }
+    if (field === 'eventDate' && value != null) {
+      return events.filter(e =>
+        e[field].toDate().toDateString() === value.toDateString()
+      );
+    }
     return events.filter(e =>
       e[field].toLowerCase().includes(value.toLowerCase())
     );

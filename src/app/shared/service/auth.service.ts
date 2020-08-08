@@ -54,6 +54,7 @@ export class AuthService {
         // this.router.navigate(['<!-- enter your route name here -->']);
         // alert('Email verification mail has been sent! \n Please Verify to Continue!');
         alert('Please validate your email address. Kindly check your inbox.');
+        this.logout();
       });
   }
 
@@ -181,6 +182,7 @@ export class AuthService {
 
   logout() {
     this.user = null;
+    this.eventBus.announce('Logout');
     return this.afAuth.auth.signOut();
   }
 

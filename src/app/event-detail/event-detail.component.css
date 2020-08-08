@@ -6,6 +6,9 @@
 .modal {
   text-align: center;
 }
+.image-holder {
+  position: relative;
+}
 .event-image {
   max-height: 450px;
   cursor: pointer;
@@ -13,4 +16,16 @@
 }
 .event-image:hover {
   transform: scale(1.03);
+}
+.full-image-button {
+  position: absolute;
+  top: 27px;
+  right: 18px;
+  padding: 6px;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #000000;
+}
+.full-image-button:hover {
+  background-color: #fff;
 }

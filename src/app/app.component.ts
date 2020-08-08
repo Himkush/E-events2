@@ -38,5 +38,8 @@ export class AppComponent implements OnInit {
         this.user =  this.auth.user;
       });
     }
+    this.eventBusService.listen('Logout').subscribe(() => {
+      this.user =  null;
+    });
   }
 }

@@ -13,6 +13,8 @@ export class EventComponent implements OnInit {
   pEvents: FormsModel[];
   recEvents: FormsModel[];
   loaded = false;
+  eventNameInput = '';
+  eventDateInput: Date = null;
   @Input() adminPage?: boolean;
   constructor(private eventService: EventFormService) { }
   date = Date.now();
@@ -26,10 +28,6 @@ export class EventComponent implements OnInit {
       this.upEvents = this.upcomingEvents();
       this.pEvents = this.pastEvents();
       this.recEvents = this.recommendedEvents();
-      if (typeof (items) === 'undefined' || items.length === 0) {
-        // the array is defined and has at least one element
-        this.loaded = false;
-      }
       // console.log(items);
     });
   }
@@ -53,5 +51,9 @@ export class EventComponent implements OnInit {
     //   x = Math.floor(Math.random() * len);
     //   console.log(x);
     // }
+  }
+  clearFilter() {
+    this.eventDateInput = null;
+    this.eventNameInput = '';
   }
 }

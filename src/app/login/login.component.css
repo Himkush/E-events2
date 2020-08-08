@@ -29,6 +29,9 @@
     margin-bottom: 10px;
   }
 }
+.logo-color {
+  color: #66d1ff;
+}
 input {
   border-radius: 20px;
 }

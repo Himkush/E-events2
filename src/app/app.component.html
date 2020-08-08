@@ -4,7 +4,7 @@
   <alert *ngIf="user.disabled" type="danger">
     <strong>Oh snap!</strong> Your Account is Suspended and now several features of candidate is resticted for you. Kindly contact the admin.
   </alert>
-  <alert *ngIf="user.role==='coordinator' && !user.activate" type="danger">
+  <alert *ngIf="user && user.role==='coordinator' && !user.activate" type="danger">
     <strong>Oh snap!</strong> You can not perform activities as a coordinator as your account is suspended. Kindly
     contact the admin.
   </alert>

@@ -8,7 +8,7 @@
     <div class="row wow fadeIn" *ngIf="loaded">
 
       <!--Grid column-->
-      <div class="col-md-5 mt-5 pt-4 mb-4">
+      <div class="col-md-5 mt-5 pt-4 mb-4 image-holder">
 
         <img
           [src] = event.eventImageUrl
@@ -17,6 +17,7 @@
           data-toggle="modal" data-target="#imageModal"
           (click)="imageClicked(event)"
           >
+        <a [href]="event.eventImageUrl" class="d-sm-none full-image-button" target="_blank"><i class="fa fa-search-plus"></i></a>
 
       </div>
       <!--Grid column-->

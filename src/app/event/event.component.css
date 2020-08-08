@@ -25,8 +25,24 @@
   max-height: 2rem;
   line-height: 1rem;
 }
-.filter-bar {
-  -webkit-box-shadow: 2px 2px 10px 2px #cccccc;
-  -moz-box-shadow: 2px 2px 10px 2px #cccccc;
-  box-shadow: 2px 2px 10px 2px #cccccc;
+/*.filter-bar {*/
+  /*-webkit-box-shadow: 2px 2px 10px 2px #cccccc;*/
+  /*-moz-box-shadow: 2px 2px 10px 2px #cccccc;*/
+  /*box-shadow: 2px 2px 10px 2px #cccccc;*/
+/*}*/
+.filter-button {
+  position: absolute;
+  left: -73px;
+  font-size: 22px;
+  transition: 0.5s;
+}
+.filter-button:hover {
+  left: -5px;
+}
+@media screen and (max-width: 800px) {
+  .filter-button {
+    position: relative;
+    font-size: 18px;
+    left: 0;
+  }
 }

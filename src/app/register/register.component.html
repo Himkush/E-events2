@@ -1,11 +1,9 @@
 <div id="bg">
   <img src="../../assets/img/background.jpg">
 </div>
-<div class="container text-white mb-2">
-  <div class="row shift-center">
-    <h2 class="text-uppercase">{{editState ? 'Edit User Info' : 'Register'}}</h2>
-  </div>
+<div class="container text-white mb-2 p-3">
 
+  <h2 class="text-uppercase text-center border-secondary border-bottom pb-3">{{editState ? 'Edit User Info' : 'Register'}}</h2>
   <form *ngIf="registerForm" [formGroup]="registerForm" class="pt-4">
 
     <div class="row shift-center ml-md-1 pb-3">

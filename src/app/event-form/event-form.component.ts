@@ -73,7 +73,7 @@ export class EventFormComponent implements OnInit {
     }
     this.eventForm = new FormGroup({
       eventName: new FormControl(eventName, [Validators.required]),
-      eventImageUrl: new FormControl(),
+      eventImageUrl: new FormControl(eventImageUrl),
       eventCaption: new FormControl(eventCaption, [Validators.required]),
       eventType: new FormControl(eventType, [Validators.required]),
       eventDate: new FormControl(eventDate, Validators.required),

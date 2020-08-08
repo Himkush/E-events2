@@ -184,6 +184,16 @@ button{
     left: 20%;
   }
 }
+@media screen and (max-width: 350px) {
+  .cancelled-sign {
+    left: 5%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .cancelled-sign {
+    left: 8%;
+  }
+}
 .winner-tag {
   position: absolute;
   top: 0;
